@@ -166,12 +166,18 @@ Public Class Form1
                         Project = "WUProp@Home"
                     ElseIf result.ProjectUrl = "https://moowrap.net/" Or result.ProjectUrl = "http://moowrap.net/" Then
                         Project = "Moo! Wrapper"
-                    ElseIf result.ProjectUrl = "http://www.bitcoinutopia.net/bitcoinutopia/" Then
+                    ElseIf result.ProjectUrl = "http://www.bitcoinutopia.net/bitcoinutopia/" Or result.ProjectUrl = "http://bitcoinutopia.net/bitcoinutopia/" Then
                         Project = "Bitcoin Utopia"
                     ElseIf result.ProjectUrl = "http://setiathome.berkeley.edu/" Then
                         Project = "SETI@Home"
                     ElseIf result.ProjectUrl = "http://asteroidsathome.net/boinc/" Then
                         Project = "Asteroids@Home"
+                    ElseIf result.ProjectUrl = "http://goofyxgridathome.net/" Then
+                        Project = "GoofyxGrid@Home"
+                    ElseIf result.ProjectUrl = "http://cpu.goofyxgridathome.net/" Then
+                        Project = "GoofyxGrid@Home CPU"
+                    ElseIf result.ProjectUrl = "http://finance.gridcoin.us/finance/" Then
+                        Project = "Gridcoin Finance"
                     Else
                         Project = result.ProjectUrl
                     End If

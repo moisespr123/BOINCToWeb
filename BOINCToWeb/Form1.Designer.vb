@@ -322,7 +322,6 @@ Partial Class Form1
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.RichTextBox1)
         Me.MaximizeBox = False
-        Me.MinimizeBox = False
         Me.Name = "Form1"
         Me.Text = "BOINC to Database to show tasks on web"
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
