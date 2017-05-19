@@ -69,7 +69,7 @@ Public Class Form1
         TextBox6.Text = My.Settings.MySQLDatabase
         TextBox7.Text = My.Settings.MySQLUsername
         TextBox8.Text = My.Settings.MySQLPassword
-        NumericUpDown1.Value = My.Settings.TimeToWait
+        If String.IsNullOrEmpty(My.Settings.TimeToWait) = False Then NumericUpDown1.Value = My.Settings.TimeToWait
     End Sub
 
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
