@@ -92,28 +92,36 @@ Public Class Form1
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        Dim NumberOfHosts As Integer = ListBox1.Items.Count
-        StatusLog("Starting MySQL Database Update")
-        TruncateTables(My.Settings.MySQLServer, My.Settings.MySQLPort, My.Settings.MySQLDatabase, My.Settings.MySQLUsername, My.Settings.MySQLPassword)
-        StatusLog("Number of hosts: " & NumberOfHosts)
-        If NumberOfHosts > 0 Then
-            For i = 0 To NumberOfHosts - 1
-                GetHostTasks(My.Settings.PCName.Item(i), My.Settings.PCIPAddress.Item(i), My.Settings.PCPort.Item(i), My.Settings.PCPassword.Item(i), My.Settings.MySQLServer, My.Settings.MySQLPort, My.Settings.MySQLDatabase, My.Settings.MySQLUsername, My.Settings.MySQLPassword)
-            Next
-        End If
+        Try
+            Dim NumberOfHosts As Integer = ListBox1.Items.Count
+            StatusLog("Starting MySQL Database Update")
+            TruncateTables(My.Settings.MySQLServer, My.Settings.MySQLPort, My.Settings.MySQLDatabase, My.Settings.MySQLUsername, My.Settings.MySQLPassword)
+            StatusLog("Number of hosts: " & NumberOfHosts)
+            If NumberOfHosts > 0 Then
+                For i = 0 To NumberOfHosts - 1
+                    GetHostTasks(My.Settings.PCName.Item(i), My.Settings.PCIPAddress.Item(i), My.Settings.PCPort.Item(i), My.Settings.PCPassword.Item(i), My.Settings.MySQLServer, My.Settings.MySQLPort, My.Settings.MySQLDatabase, My.Settings.MySQLUsername, My.Settings.MySQLPassword)
+                Next
+            End If
+        Catch ex As Exception
+            StatusLog("Couldn't update Database")
+        End Try
     End Sub
     Private Sub StatusLog(text As String)
         RichTextBox1.Text += Date.Now & " || " & text & vbNewLine
     End Sub
     Private Sub TruncateTables(MySQLServer As String, MySQLPort As Integer, MySQLDatabase As String, MySQLUsername As String, MySQLPassword As String)
-        StatusLog("Truncating Table")
-        Dim MySQLConnString = "server=" & MySQLServer & ";Port=" & MySQLPort & ";Database=" & MySQLDatabase & ";Uid=" & MySQLUsername & ";Pwd=" & MySQLPassword & ";Check Parameters=false;default command timeout=999;Connection Timeout=999;Pooling=false;allow user variables=true;"
-        Dim truncateSQL = "TRUNCATE TABLE tasks"
-        Dim SQLConnection = New MySql.Data.MySqlClient.MySqlConnection(MySQLConnString)
-        SQLConnection.Open()
-        Dim SQLCommand1 As New MySql.Data.MySqlClient.MySqlCommand(truncateSQL, SQLConnection)
-        SQLCommand1.ExecuteNonQuery()
-        StatusLog("Table truncated")
+        Try
+            StatusLog("Truncating Table")
+            Dim MySQLConnString = "server=" & MySQLServer & ";Port=" & MySQLPort & ";Database=" & MySQLDatabase & ";Uid=" & MySQLUsername & ";Pwd=" & MySQLPassword & ";Check Parameters=false;default command timeout=999;Connection Timeout=999;Pooling=false;allow user variables=true;"
+            Dim truncateSQL = "TRUNCATE TABLE tasks"
+            Dim SQLConnection = New MySql.Data.MySqlClient.MySqlConnection(MySQLConnString)
+            SQLConnection.Open()
+            Dim SQLCommand1 As New MySql.Data.MySqlClient.MySqlCommand(truncateSQL, SQLConnection)
+            SQLCommand1.ExecuteNonQuery()
+            StatusLog("Table truncated")
+        Catch ex As Exception
+            StatusLog("Coudn't truncate table")
+        End Try
     End Sub
     Private Async Sub GetHostTasks(host As String, ip As String, port As Integer, password As String, MySQLServer As String, MySQLPort As Integer, MySQLDatabase As String, MySQLUsername As String, MySQLPassword As String)
         StatusLog("Getting Tasks for host " & host)
