@@ -64,6 +64,7 @@ Public Class Form1
                 ListBox1.Items.Add(item)
             Next
         End If
+        If My.Settings.EraseLog = True Then CheckBox1.Checked = True Else CheckBox1.Checked = False
         TextBox4.Text = My.Settings.MySQLServer
         TextBox5.Text = My.Settings.MySQLPort
         TextBox6.Text = My.Settings.MySQLDatabase
@@ -206,5 +207,15 @@ Public Class Form1
         Catch ex As Exception
             StatusLog("Failed getting tasks for host " & host)
         End Try
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
+        If CheckBox1.Checked Then
+            My.Settings.EraseLog = True
+            My.Settings.Save()
+        Else
+            My.Settings.EraseLog = False
+            My.Settings.Save()
+        End If
     End Sub
 End Class
