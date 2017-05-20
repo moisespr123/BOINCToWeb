@@ -111,7 +111,7 @@ Public Class Form1
         End Try
     End Sub
     Private Sub StatusLog(text As String)
-        RichTextBox1.Text += Date.Now & " || " & text & vbNewLine
+        RichTextBox1.AppendText(Date.Now & " || " & text & vbNewLine)
         RichTextBox1.ScrollToCaret()
     End Sub
     Private Sub TruncateTables(MySQLServer As String, MySQLPort As Integer, MySQLDatabase As String, MySQLUsername As String, MySQLPassword As String)
@@ -217,5 +217,9 @@ Public Class Form1
             My.Settings.EraseLog = False
             My.Settings.Save()
         End If
+    End Sub
+
+    Private Sub RichTextBox1_TextChanged(sender As Object, e As EventArgs) Handles RichTextBox1.TextChanged
+        RichTextBox1.SelectionStart = RichTextBox1.Text.Length
     End Sub
 End Class
