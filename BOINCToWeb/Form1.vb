@@ -140,11 +140,18 @@ Public Class Form1
                 For Each result In Await BOINCClient.GetResultsAsync()
                     Dim Percent As Double
                     Dim Status As String = ""
-                    If result.ActiveTask = True And result.ReadyToReport = False Then
+                    If result.ActiveTask = True And result.ReadyToReport = False And (result.ActiveTaskState <> 9 And result.ActiveTaskState <> 0) Then
                         If String.IsNullOrEmpty(result.PlanClass) Then
                             Status = "Running"
                         Else
                             Status = "Running (" & result.PlanClass & ")"
+                        End If
+                        Percent = result.FractionDone * 100
+                    ElseIf result.ActiveTask = True And result.ReadyToReport = False And (result.ActiveTaskState = 9 Or result.ActiveTaskState = 0) Then
+                        If String.IsNullOrEmpty(result.PlanClass) Then
+                            Status = "Suspended"
+                        Else
+                            Status = "Suspended (" & result.PlanClass & ")"
                         End If
                         Percent = result.FractionDone * 100
                     ElseIf result.ActiveTask = False And result.ReadyToReport = False Then
