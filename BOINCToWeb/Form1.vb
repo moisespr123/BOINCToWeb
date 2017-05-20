@@ -93,6 +93,9 @@ Public Class Form1
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
         Try
+            If CheckBox1.Checked Then
+                RichTextBox1.Text = ""
+            End If
             Dim NumberOfHosts As Integer = ListBox1.Items.Count
             StatusLog("Starting MySQL Database Update")
             TruncateTables(My.Settings.MySQLServer, My.Settings.MySQLPort, My.Settings.MySQLDatabase, My.Settings.MySQLUsername, My.Settings.MySQLPassword)
@@ -108,6 +111,7 @@ Public Class Form1
     End Sub
     Private Sub StatusLog(text As String)
         RichTextBox1.Text += Date.Now & " || " & text & vbNewLine
+        RichTextBox1.ScrollToCaret()
     End Sub
     Private Sub TruncateTables(MySQLServer As String, MySQLPort As Integer, MySQLDatabase As String, MySQLUsername As String, MySQLPassword As String)
         Try
@@ -186,6 +190,8 @@ Public Class Form1
                         Project = "GoofyxGrid@Home CPU"
                     ElseIf result.ProjectUrl = "http://finance.gridcoin.us/finance/" Then
                         Project = "Gridcoin Finance"
+                    ElseIf result.ProjectUrl.Contains("rechenkraft.net/yoyo/") Then ' Or result.ProjectUrl = "http://rechenkraft.net/yoyo/"Then
+                        Project = "yoyo@home"
                     Else
                         Project = result.ProjectUrl
                     End If

@@ -52,6 +52,7 @@ Partial Class Form1
         Me.TextBox9 = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
+        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
@@ -116,6 +117,7 @@ Partial Class Form1
         '
         Me.TextBox3.Location = New System.Drawing.Point(15, 159)
         Me.TextBox3.Name = "TextBox3"
+        Me.TextBox3.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9679)
         Me.TextBox3.Size = New System.Drawing.Size(158, 20)
         Me.TextBox3.TabIndex = 8
         '
@@ -214,6 +216,7 @@ Partial Class Form1
         '
         Me.TextBox8.Location = New System.Drawing.Point(190, 207)
         Me.TextBox8.Name = "TextBox8"
+        Me.TextBox8.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9679)
         Me.TextBox8.Size = New System.Drawing.Size(158, 20)
         Me.TextBox8.TabIndex = 20
         '
@@ -288,11 +291,22 @@ Partial Class Form1
         Me.Label13.TabIndex = 27
         Me.Label13.Text = "Developed by Moisés Cardona" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "v1.1" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "http://moisescardona.me"
         '
+        'CheckBox1
+        '
+        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.Location = New System.Drawing.Point(363, 356)
+        Me.CheckBox1.Name = "CheckBox1"
+        Me.CheckBox1.Size = New System.Drawing.Size(194, 17)
+        Me.CheckBox1.TabIndex = 28
+        Me.CheckBox1.Text = "Erase Log when updating database"
+        Me.CheckBox1.UseVisualStyleBackColor = True
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(777, 413)
+        Me.Controls.Add(Me.CheckBox1)
         Me.Controls.Add(Me.Label13)
         Me.Controls.Add(Me.TextBox9)
         Me.Controls.Add(Me.Label12)
@@ -359,4 +373,5 @@ Partial Class Form1
     Friend WithEvents TextBox9 As TextBox
     Friend WithEvents Label12 As Label
     Friend WithEvents Label13 As Label
+    Friend WithEvents CheckBox1 As CheckBox
 End Class
