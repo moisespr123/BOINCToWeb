@@ -211,4 +211,8 @@ Public Class Form1
     Private Sub RichTextBox1_TextChanged(sender As Object, e As EventArgs) Handles RichTextBox1.TextChanged
         RichTextBox1.SelectionStart = RichTextBox1.Text.Length
     End Sub
+
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+        Donations_Addresses.ShowDialog()
+    End Sub
 End Class
