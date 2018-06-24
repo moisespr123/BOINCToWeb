@@ -23,6 +23,7 @@ Partial Class Form1
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
         Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
         Me.Button1 = New System.Windows.Forms.Button()
         Me.ListBox1 = New System.Windows.Forms.ListBox()
@@ -54,6 +55,7 @@ Partial Class Form1
         Me.Label13 = New System.Windows.Forms.Label()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Button4 = New System.Windows.Forms.Button()
+        Me.TrayIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         CType(Me.NumericUpDown1,System.ComponentModel.ISupportInitialize).BeginInit
         Me.SuspendLayout
         '
@@ -237,9 +239,11 @@ Partial Class Form1
         'NumericUpDown1
         '
         Me.NumericUpDown1.Location = New System.Drawing.Point(191, 255)
+        Me.NumericUpDown1.Minimum = New Decimal(New Integer() {5, 0, 0, 65536})
         Me.NumericUpDown1.Name = "NumericUpDown1"
         Me.NumericUpDown1.Size = New System.Drawing.Size(48, 20)
         Me.NumericUpDown1.TabIndex = 13
+        Me.NumericUpDown1.Value = New Decimal(New Integer() {5, 0, 0, 65536})
         '
         'Label9
         '
@@ -313,6 +317,11 @@ Partial Class Form1
         Me.Button4.Text = "Like this software? DONATE!"
         Me.Button4.UseVisualStyleBackColor = true
         '
+        'TrayIcon
+        '
+        Me.TrayIcon.Icon = CType(resources.GetObject("TrayIcon.Icon"),System.Drawing.Icon)
+        Me.TrayIcon.Text = "TrayIcon"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
@@ -348,6 +357,7 @@ Partial Class Form1
         Me.Controls.Add(Me.ListBox1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.RichTextBox1)
+        Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
         Me.MaximizeBox = false
         Me.Name = "Form1"
         Me.Text = "BOINC to Database to show tasks on web"
@@ -388,4 +398,5 @@ End Sub
     Friend WithEvents Label13 As Label
     Friend WithEvents CheckBox1 As CheckBox
     Friend WithEvents Button4 As Button
+    Friend WithEvents TrayIcon As NotifyIcon
 End Class

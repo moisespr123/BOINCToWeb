@@ -218,4 +218,19 @@ Public Class Form1
     Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
         Donations_Addresses.ShowDialog()
     End Sub
+
+    Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
+        If Me.WindowState = FormWindowState.Minimized Then
+            Me.ShowInTaskbar = False
+            Me.Hide
+            TrayIcon.Visible = True
+        End If
+    End Sub
+
+    Private Sub TrayIcon_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TrayIcon.MouseDoubleClick
+        Me.Show
+        Me.windowState = FormWindowState.normal
+        Me.ShowInTaskbar = True
+        TrayIcon.Visible = False
+    End Sub
 End Class
