@@ -9,6 +9,9 @@ Public Class Form1
         My.Settings.MySQLPassword = TextBox8.Text
         My.Settings.TimeToWait = NumericUpDown1.Value
         My.Settings.Save()
+        Run()
+    End Sub
+    Private Sub Run()
         If NumericUpDown1.Value > 0 Then
             Timer1.Interval = NumericUpDown1.Value * 60 * 1000
             Timer1.Start()
@@ -23,7 +26,6 @@ Public Class Form1
                 Next
             End If
         End If
-
     End Sub
 
     Private Async Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
@@ -70,7 +72,14 @@ Public Class Form1
         TextBox6.Text = My.Settings.MySQLDatabase
         TextBox7.Text = My.Settings.MySQLUsername
         TextBox8.Text = My.Settings.MySQLPassword
-        If String.IsNullOrEmpty(My.Settings.TimeToWait) = False Then NumericUpDown1.Value = My.Settings.TimeToWait
+        If Not String.IsNullOrEmpty(My.Settings.TimeToWait) Then NumericUpDown1.Value = My.Settings.TimeToWait
+        Dim vars As String() = Environment.GetCommandLineArgs
+        If vars.Count > 1 Then
+            If vars(1) = "-s" Then
+                Run()
+                Me.WindowState = FormWindowState.Minimized 
+            End If
+        End If
     End Sub
 
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
@@ -222,14 +231,14 @@ Public Class Form1
     Private Sub Form1_Resize(sender As Object, e As EventArgs) Handles MyBase.Resize
         If Me.WindowState = FormWindowState.Minimized Then
             Me.ShowInTaskbar = False
-            Me.Hide
+            Me.Hide()
             TrayIcon.Visible = True
         End If
     End Sub
 
     Private Sub TrayIcon_MouseDoubleClick(sender As Object, e As MouseEventArgs) Handles TrayIcon.MouseDoubleClick
-        Me.Show
-        Me.windowState = FormWindowState.normal
+        Me.Show()
+        Me.WindowState = FormWindowState.Normal
         Me.ShowInTaskbar = True
         TrayIcon.Visible = False
     End Sub

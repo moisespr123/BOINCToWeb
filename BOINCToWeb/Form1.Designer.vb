@@ -320,7 +320,7 @@ Partial Class Form1
         'TrayIcon
         '
         Me.TrayIcon.Icon = CType(resources.GetObject("TrayIcon.Icon"),System.Drawing.Icon)
-        Me.TrayIcon.Text = "TrayIcon"
+        Me.TrayIcon.Text = "BOINC To Web Software"
         '
         'Form1
         '
