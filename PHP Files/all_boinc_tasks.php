@@ -30,7 +30,7 @@ $(document).ready(function() 
 <?php
 require_once 'config.php';
 global $mysqli;
-$result = $mysqli->query("SELECT * FROM tasks ORDER BY Status DESC");
+$result = $mysqli->query("SELECT * FROM tasks ORDER BY Status DESC, Project ASC");
 if (mysqli_num_rows($result) > 0){
     $o='';
     while($row = mysqli_fetch_assoc($result))

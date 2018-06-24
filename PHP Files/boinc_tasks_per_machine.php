@@ -18,7 +18,7 @@ require_once 'config.php';
 global $mysqli;
 
 function getTasksPerMachine($mysqli, $machine){
-    $query = $mysqli->prepare("SELECT * FROM tasks WHERE PCname=? ORDER BY Status DESC");
+    $query = $mysqli->prepare("SELECT * FROM tasks WHERE PCname=? ORDER BY Status, Project ASC");
     $query->bind_param("s", $machine);
     $query->execute();
     $result = $query->get_result();
