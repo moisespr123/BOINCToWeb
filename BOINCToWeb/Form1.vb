@@ -1,7 +1,9 @@
 ﻿Imports BoincRpc
 
 Public Class Form1
-    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+
+    Private Running As Boolean = False
+    Private Sub StartStopButton_Click(sender As Object, e As EventArgs) Handles StartStopButton.Click
         My.Settings.MySQLServer = TextBox4.Text
         My.Settings.MySQLPort = TextBox5.Text
         My.Settings.MySQLDatabase = TextBox6.Text
@@ -9,26 +11,37 @@ Public Class Form1
         My.Settings.MySQLPassword = TextBox8.Text
         My.Settings.TimeToWait = NumericUpDown1.Value
         My.Settings.Save()
-        Run()
+        RunOrStop()
     End Sub
-    Private Sub Run()
+    Private Sub RunOrStop()
         If NumericUpDown1.Value > 0 Then
-            Timer1.Interval = NumericUpDown1.Value * 60 * 1000
-            Timer1.Start()
-            Dim NumberOfHosts As Integer = ListBox1.Items.Count
-            StatusLog("Starting MySQL Database Update")
-            StatusLog("Number of hosts: " & NumberOfHosts)
-            StatusLog("Starting MySQL Database Update")
-            TruncateTables(My.Settings.MySQLServer, My.Settings.MySQLPort, My.Settings.MySQLDatabase, My.Settings.MySQLUsername, My.Settings.MySQLPassword)
-            If NumberOfHosts > 0 Then
-                For i = 0 To NumberOfHosts - 1
-                    GetHostTasks(My.Settings.PCName.Item(i), My.Settings.PCIPAddress.Item(i), My.Settings.PCPort.Item(i), My.Settings.PCPassword.Item(i), My.Settings.MySQLServer, My.Settings.MySQLPort, My.Settings.MySQLDatabase, My.Settings.MySQLUsername, My.Settings.MySQLPassword)
-                Next
+            If Not Running Then
+                Running = True
+                StartStopButton.Text = "Stop Fetching"
+                Timer1.Interval = NumericUpDown1.Value * 60 * 1000
+                Timer1.Start()
+                Dim NumberOfHosts As Integer = ListBox1.Items.Count
+                StatusLog("Starting MySQL Database Update")
+                StatusLog("Number of hosts: " & NumberOfHosts)
+                StatusLog("Starting MySQL Database Update")
+                TruncateTables(My.Settings.MySQLServer, My.Settings.MySQLPort, My.Settings.MySQLDatabase, My.Settings.MySQLUsername, My.Settings.MySQLPassword)
+                If NumberOfHosts > 0 Then
+                    For i = 0 To NumberOfHosts - 1
+                        GetHostTasks(My.Settings.PCName.Item(i), My.Settings.PCIPAddress.Item(i), My.Settings.PCPort.Item(i), My.Settings.PCPassword.Item(i), My.Settings.MySQLServer, My.Settings.MySQLPort, My.Settings.MySQLDatabase, My.Settings.MySQLUsername, My.Settings.MySQLPassword)
+                    Next
+                End If
+            Else
+                Running = False
+                Timer1.Stop()
+                StatusLog("Stopped fetching tasks. Press the button again to start fetching tasks again")
+                StartStopButton.Text = "Fetch Tasks!"
             End If
+        Else
+            MessageBox.Show("Timer cannot be 0")
         End If
     End Sub
 
-    Private Async Sub Button2_Click(sender As Object, e As EventArgs) Handles Button2.Click
+    Private Async Sub AddToListButton_Click(sender As Object, e As EventArgs) Handles AddToListButton.Click
         Dim BOINCClient As New RpcClient
         Try
             Await BOINCClient.ConnectAsync(TextBox2.Text, TextBox9.Text)
@@ -49,18 +62,10 @@ Public Class Form1
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        If My.Settings.PCName Is Nothing Then
-            My.Settings.PCName = New Specialized.StringCollection
-        End If
-        If My.Settings.PCIPAddress Is Nothing Then
-            My.Settings.PCIPAddress = New Specialized.StringCollection
-        End If
-        If My.Settings.PCPassword Is Nothing Then
-            My.Settings.PCPassword = New Specialized.StringCollection
-        End If
-        If My.Settings.PCPort Is Nothing Then
-            My.Settings.PCPort = New Specialized.StringCollection
-        End If
+        If My.Settings.PCName Is Nothing Then My.Settings.PCName = New Specialized.StringCollection
+        If My.Settings.PCIPAddress Is Nothing Then My.Settings.PCIPAddress = New Specialized.StringCollection
+        If My.Settings.PCPassword Is Nothing Then My.Settings.PCPassword = New Specialized.StringCollection
+        If My.Settings.PCPort Is Nothing Then My.Settings.PCPort = New Specialized.StringCollection
         If My.Settings.PCName.Count > 0 Then
             For Each item In My.Settings.PCName
                 ListBox1.Items.Add(item)
@@ -76,8 +81,8 @@ Public Class Form1
         Dim vars As String() = Environment.GetCommandLineArgs
         If vars.Count > 1 Then
             If vars(1) = "-s" Then
-                Run()
-                Me.WindowState = FormWindowState.Minimized 
+                RunOrStop()
+                Me.WindowState = FormWindowState.Minimized
             End If
         End If
     End Sub
@@ -92,7 +97,7 @@ Public Class Form1
         End Try
     End Sub
 
-    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles Button3.Click
+    Private Sub Button3_Click(sender As Object, e As EventArgs) Handles RemoveButton.Click
         My.Settings.PCName.RemoveAt(ListBox1.SelectedIndex)
         My.Settings.PCIPAddress.RemoveAt(ListBox1.SelectedIndex)
         My.Settings.PCPassword.RemoveAt(ListBox1.SelectedIndex)
