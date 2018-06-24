@@ -28,16 +28,16 @@ $(document).ready(function() 
 </thead> 
 <tbody> 
 <?php
-error_reporting(E_ALL);
-$mysql= new mysqli('server', 'username', 'password', 'database');
-$sql="SELECT * FROM tasks ORDER BY Status DESC";
-$result=mysqli_query($mysql, $sql);
-$o='';
-while(list($taskname, $project, $percent, $status, $pkey, $pcname, $elapsedtime, $remainingtime, $deadline) = mysqli_fetch_row($result))
-$o .= '<tr id="tabletr"><td>'.$project.'</td><td>'.$taskname.'</td><td>'.$percent.'%</td><td>'.$status.'</td><td>'.$elapsedtime.'</td><td>'.$remainingtime.'</td><td>'.$deadline.'</td><td>'.$pcname.'</td></tr>';
-echo $o;
+require_once 'config.php';
+global $mysqli;
+$result = $mysqli->query("SELECT * FROM tasks ORDER BY Status DESC");
+if (mysqli_num_rows($result) > 0){
+    $o='';
+    while($row = mysqli_fetch_assoc($result))
+        $o .= "<tr id='tabletr'><td>".$row['Project']."</td><td>".$row['TaskName']."</td><td>".$row['PercentDone']."%</td><td>".$row['Status']."</td><td>".$row['ElapsedTime']."</td><td>".$row['RemainingTime']."</td><td>".$row['ReportDeadline']."</td><td>".$row['PCName']."</td></tr>";
+    echo $o;
+}
 ?>
 </tbody>
 </table>
-<br><br>
-
+</body>
