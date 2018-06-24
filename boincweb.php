@@ -6,7 +6,7 @@
 <script type="text/javascript">
 $(document).ready(function() 
     { 
-        $("table").tablesorter({ theme : 'blue' });; 
+        $("table").tablesorter({ theme : 'blue' });
     } 
 ); 
 </script>
