@@ -54,8 +54,8 @@ Partial Class Form1
         Me.Label13 = New System.Windows.Forms.Label()
         Me.CheckBox1 = New System.Windows.Forms.CheckBox()
         Me.Button4 = New System.Windows.Forms.Button()
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).BeginInit()
-        Me.SuspendLayout()
+        CType(Me.NumericUpDown1,System.ComponentModel.ISupportInitialize).BeginInit
+        Me.SuspendLayout
         '
         'RichTextBox1
         '
@@ -70,21 +70,21 @@ Partial Class Form1
         Me.Button1.Location = New System.Drawing.Point(191, 281)
         Me.Button1.Name = "Button1"
         Me.Button1.Size = New System.Drawing.Size(157, 23)
-        Me.Button1.TabIndex = 1
+        Me.Button1.TabIndex = 14
         Me.Button1.Text = "Fetch Tasks!"
-        Me.Button1.UseVisualStyleBackColor = True
+        Me.Button1.UseVisualStyleBackColor = true
         '
         'ListBox1
         '
-        Me.ListBox1.FormattingEnabled = True
+        Me.ListBox1.FormattingEnabled = true
         Me.ListBox1.Location = New System.Drawing.Point(15, 222)
         Me.ListBox1.Name = "ListBox1"
         Me.ListBox1.Size = New System.Drawing.Size(158, 147)
-        Me.ListBox1.TabIndex = 2
+        Me.ListBox1.TabIndex = 6
         '
         'Label1
         '
-        Me.Label1.AutoSize = True
+        Me.Label1.AutoSize = true
         Me.Label1.Location = New System.Drawing.Point(12, 9)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(91, 13)
@@ -93,7 +93,7 @@ Partial Class Form1
         '
         'Label2
         '
-        Me.Label2.AutoSize = True
+        Me.Label2.AutoSize = true
         Me.Label2.Location = New System.Drawing.Point(12, 51)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(114, 13)
@@ -105,14 +105,14 @@ Partial Class Form1
         Me.TextBox1.Location = New System.Drawing.Point(15, 25)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox1.TabIndex = 5
+        Me.TextBox1.TabIndex = 1
         '
         'TextBox2
         '
         Me.TextBox2.Location = New System.Drawing.Point(15, 67)
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox2.TabIndex = 6
+        Me.TextBox2.TabIndex = 2
         '
         'TextBox3
         '
@@ -120,11 +120,11 @@ Partial Class Form1
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9679)
         Me.TextBox3.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox3.TabIndex = 8
+        Me.TextBox3.TabIndex = 4
         '
         'Label3
         '
-        Me.Label3.AutoSize = True
+        Me.Label3.AutoSize = true
         Me.Label3.Location = New System.Drawing.Point(12, 143)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(109, 13)
@@ -136,22 +136,22 @@ Partial Class Form1
         Me.Button2.Location = New System.Drawing.Point(15, 185)
         Me.Button2.Name = "Button2"
         Me.Button2.Size = New System.Drawing.Size(158, 23)
-        Me.Button2.TabIndex = 9
+        Me.Button2.TabIndex = 5
         Me.Button2.Text = "Add to List"
-        Me.Button2.UseVisualStyleBackColor = True
+        Me.Button2.UseVisualStyleBackColor = true
         '
         'Button3
         '
         Me.Button3.Location = New System.Drawing.Point(12, 381)
         Me.Button3.Name = "Button3"
         Me.Button3.Size = New System.Drawing.Size(161, 23)
-        Me.Button3.TabIndex = 10
+        Me.Button3.TabIndex = 7
         Me.Button3.Text = "Remove PC"
-        Me.Button3.UseVisualStyleBackColor = True
+        Me.Button3.UseVisualStyleBackColor = true
         '
         'Label4
         '
-        Me.Label4.AutoSize = True
+        Me.Label4.AutoSize = true
         Me.Label4.Location = New System.Drawing.Point(187, 9)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(79, 13)
@@ -163,11 +163,11 @@ Partial Class Form1
         Me.TextBox4.Location = New System.Drawing.Point(190, 25)
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox4.TabIndex = 12
+        Me.TextBox4.TabIndex = 8
         '
         'Label5
         '
-        Me.Label5.AutoSize = True
+        Me.Label5.AutoSize = true
         Me.Label5.Location = New System.Drawing.Point(187, 51)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(67, 13)
@@ -179,11 +179,12 @@ Partial Class Form1
         Me.TextBox5.Location = New System.Drawing.Point(190, 67)
         Me.TextBox5.Name = "TextBox5"
         Me.TextBox5.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox5.TabIndex = 14
+        Me.TextBox5.TabIndex = 9
+        Me.TextBox5.Text = "3306"
         '
         'Label6
         '
-        Me.Label6.AutoSize = True
+        Me.Label6.AutoSize = true
         Me.Label6.Location = New System.Drawing.Point(187, 99)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(94, 13)
@@ -195,18 +196,18 @@ Partial Class Form1
         Me.TextBox6.Location = New System.Drawing.Point(190, 115)
         Me.TextBox6.Name = "TextBox6"
         Me.TextBox6.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox6.TabIndex = 16
+        Me.TextBox6.TabIndex = 10
         '
         'TextBox7
         '
         Me.TextBox7.Location = New System.Drawing.Point(190, 159)
         Me.TextBox7.Name = "TextBox7"
         Me.TextBox7.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox7.TabIndex = 18
+        Me.TextBox7.TabIndex = 11
         '
         'Label7
         '
-        Me.Label7.AutoSize = True
+        Me.Label7.AutoSize = true
         Me.Label7.Location = New System.Drawing.Point(187, 143)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(96, 13)
@@ -219,11 +220,11 @@ Partial Class Form1
         Me.TextBox8.Name = "TextBox8"
         Me.TextBox8.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9679)
         Me.TextBox8.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox8.TabIndex = 20
+        Me.TextBox8.TabIndex = 12
         '
         'Label8
         '
-        Me.Label8.AutoSize = True
+        Me.Label8.AutoSize = true
         Me.Label8.Location = New System.Drawing.Point(187, 191)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(94, 13)
@@ -238,11 +239,11 @@ Partial Class Form1
         Me.NumericUpDown1.Location = New System.Drawing.Point(191, 255)
         Me.NumericUpDown1.Name = "NumericUpDown1"
         Me.NumericUpDown1.Size = New System.Drawing.Size(48, 20)
-        Me.NumericUpDown1.TabIndex = 21
+        Me.NumericUpDown1.TabIndex = 13
         '
         'Label9
         '
-        Me.Label9.AutoSize = True
+        Me.Label9.AutoSize = true
         Me.Label9.Location = New System.Drawing.Point(188, 239)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(111, 13)
@@ -251,7 +252,7 @@ Partial Class Form1
         '
         'Label10
         '
-        Me.Label10.AutoSize = True
+        Me.Label10.AutoSize = true
         Me.Label10.Location = New System.Drawing.Point(245, 262)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(44, 13)
@@ -260,7 +261,7 @@ Partial Class Form1
         '
         'Label11
         '
-        Me.Label11.AutoSize = True
+        Me.Label11.AutoSize = true
         Me.Label11.Location = New System.Drawing.Point(360, 9)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(40, 13)
@@ -272,11 +273,12 @@ Partial Class Form1
         Me.TextBox9.Location = New System.Drawing.Point(15, 115)
         Me.TextBox9.Name = "TextBox9"
         Me.TextBox9.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox9.TabIndex = 26
+        Me.TextBox9.TabIndex = 3
+        Me.TextBox9.Text = "31416"
         '
         'Label12
         '
-        Me.Label12.AutoSize = True
+        Me.Label12.AutoSize = true
         Me.Label12.Location = New System.Drawing.Point(12, 99)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(82, 13)
@@ -285,35 +287,35 @@ Partial Class Form1
         '
         'Label13
         '
-        Me.Label13.AutoSize = True
+        Me.Label13.AutoSize = true
         Me.Label13.Location = New System.Drawing.Point(622, 365)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(152, 39)
         Me.Label13.TabIndex = 27
-        Me.Label13.Text = "Developed by Moisés Cardona" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "v1.2" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "http://moisescardona.me"
+        Me.Label13.Text = "Developed by Moisés Cardona"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"v1.3 (dev)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"http://moisescardona.me"
         '
         'CheckBox1
         '
-        Me.CheckBox1.AutoSize = True
+        Me.CheckBox1.AutoSize = true
         Me.CheckBox1.Location = New System.Drawing.Point(363, 356)
         Me.CheckBox1.Name = "CheckBox1"
         Me.CheckBox1.Size = New System.Drawing.Size(194, 17)
-        Me.CheckBox1.TabIndex = 28
+        Me.CheckBox1.TabIndex = 15
         Me.CheckBox1.Text = "Erase Log when updating database"
-        Me.CheckBox1.UseVisualStyleBackColor = True
+        Me.CheckBox1.UseVisualStyleBackColor = true
         '
         'Button4
         '
         Me.Button4.Location = New System.Drawing.Point(363, 378)
         Me.Button4.Name = "Button4"
         Me.Button4.Size = New System.Drawing.Size(253, 23)
-        Me.Button4.TabIndex = 29
+        Me.Button4.TabIndex = 16
         Me.Button4.Text = "Like this software? DONATE!"
-        Me.Button4.UseVisualStyleBackColor = True
+        Me.Button4.UseVisualStyleBackColor = true
         '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(777, 413)
         Me.Controls.Add(Me.Button4)
@@ -346,14 +348,14 @@ Partial Class Form1
         Me.Controls.Add(Me.ListBox1)
         Me.Controls.Add(Me.Button1)
         Me.Controls.Add(Me.RichTextBox1)
-        Me.MaximizeBox = False
+        Me.MaximizeBox = false
         Me.Name = "Form1"
         Me.Text = "BOINC to Database to show tasks on web"
-        CType(Me.NumericUpDown1, System.ComponentModel.ISupportInitialize).EndInit()
-        Me.ResumeLayout(False)
-        Me.PerformLayout()
+        CType(Me.NumericUpDown1,System.ComponentModel.ISupportInitialize).EndInit
+        Me.ResumeLayout(false)
+        Me.PerformLayout
 
-    End Sub
+End Sub
 
     Friend WithEvents RichTextBox1 As RichTextBox
     Friend WithEvents Button1 As Button

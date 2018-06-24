@@ -117,7 +117,7 @@ Public Class Form1
     Private Sub TruncateTables(MySQLServer As String, MySQLPort As Integer, MySQLDatabase As String, MySQLUsername As String, MySQLPassword As String)
         Try
             StatusLog("Truncating Table")
-            Dim MySQLConnString = "server=" & MySQLServer & ";Port=" & MySQLPort & ";Database=" & MySQLDatabase & ";Uid=" & MySQLUsername & ";Pwd=" & MySQLPassword & ";Check Parameters=false;default command timeout=999;Connection Timeout=999;Pooling=false;allow user variables=true;"
+            Dim MySQLConnString = "server=" & MySQLServer & ";Port=" & MySQLPort & ";Database=" & MySQLDatabase & ";Uid=" & MySQLUsername & ";Pwd=" & MySQLPassword & ";Check Parameters=false;default command timeout=999;Connection Timeout=999;Pooling=false;allow user variables=true;sslmode=none"
             Dim truncateSQL = "TRUNCATE TABLE tasks"
             Dim SQLConnection = New MySql.Data.MySqlClient.MySqlConnection(MySQLConnString)
             SQLConnection.Open()
@@ -130,7 +130,7 @@ Public Class Form1
     End Sub
     Private Async Sub GetHostTasks(host As String, ip As String, port As Integer, password As String, MySQLServer As String, MySQLPort As Integer, MySQLDatabase As String, MySQLUsername As String, MySQLPassword As String)
         StatusLog("Getting Tasks for host " & host)
-        Dim MySQLConnString = "server=" & MySQLServer & ";Port=" & MySQLPort & ";Database=" & MySQLDatabase & ";Uid=" & MySQLUsername & ";Pwd=" & MySQLPassword & ";Check Parameters=false;default command timeout=999;Connection Timeout=999;Pooling=false;allow user variables=true;"
+        Dim MySQLConnString = "server=" & MySQLServer & ";Port=" & MySQLPort & ";Database=" & MySQLDatabase & ";Uid=" & MySQLUsername & ";Pwd=" & MySQLPassword & ";Check Parameters=false;default command timeout=999;Connection Timeout=999;Pooling=false;allow user variables=true;sslmode=none"
         Dim BOINCClient As New RpcClient
         Try
             Await BOINCClient.ConnectAsync(ip, port)
