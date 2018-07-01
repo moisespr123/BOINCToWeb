@@ -144,7 +144,7 @@ Public Class Form1
     Private Sub InsertFinishedTask(Workunit As String, Project As String, ElapsedTime As String, Host As String, Optional PlanClass As String = "CPU")
         If Not CheckIfTaskInFinishedTable(Workunit) Then
             Dim MySQLConnString = "server=" & My.Settings.MySQLServer & ";Port=" & My.Settings.MySQLPort & ";Database=" & My.Settings.MySQLDatabase & ";Uid=" & My.Settings.MySQLUsername & ";Pwd=" & My.Settings.MySQLPassword & ";Check Parameters=false;default command timeout=999;Connection Timeout=999;Pooling=false;allow user variables=true;sslmode=none"
-            Dim Query = "INSERT INTO finishedtasks (Project, TaskName, PCName, ElapsedTime, PlanClass) VALUES ('" + Project + "','" + Workunit + "','" + Host + "','" + ElapsedTime + "','" + PlanClass + "')"
+            Dim Query = "INSERT INTO finishedtasks (Project, TaskName, PCName, ElapsedTime, PlanClass, AddedDate, AddedTime) VALUES ('" + Project + "','" + Workunit + "','" + Host + "','" + ElapsedTime + "','" + PlanClass + "','" + Now.ToUniversalTime.ToString("MM/dd/yyyy") + "','" + Now.ToUniversalTime.ToString("hh:mm:ss tt") + "')"
             Dim SQLConnection = New MySql.Data.MySqlClient.MySqlConnection(MySQLConnString)
             SQLConnection.Open()
             Dim SQLCommand As New MySql.Data.MySqlClient.MySqlCommand(Query, SQLConnection)
