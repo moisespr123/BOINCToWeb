@@ -20,16 +20,7 @@ Public Class Form1
                 StartStopButton.Text = "Stop Fetching"
                 Timer1.Interval = NumericUpDown1.Value * 60 * 1000
                 Timer1.Start()
-                Dim NumberOfHosts As Integer = ListBox1.Items.Count
-                StatusLog("Starting MySQL Database Update")
-                StatusLog("Number of hosts: " & NumberOfHosts)
-                StatusLog("Starting MySQL Database Update")
-                TruncateTables(My.Settings.MySQLServer, My.Settings.MySQLPort, My.Settings.MySQLDatabase, My.Settings.MySQLUsername, My.Settings.MySQLPassword)
-                If NumberOfHosts > 0 Then
-                    For i = 0 To NumberOfHosts - 1
-                        GetHostTasks(My.Settings.PCName.Item(i), My.Settings.PCIPAddress.Item(i), My.Settings.PCPort.Item(i), My.Settings.PCPassword.Item(i), My.Settings.MySQLServer, My.Settings.MySQLPort, My.Settings.MySQLDatabase, My.Settings.MySQLUsername, My.Settings.MySQLPassword)
-                    Next
-                End If
+                UpdateTasks()
             Else
                 Running = False
                 Timer1.Stop()
@@ -107,17 +98,21 @@ Public Class Form1
     End Sub
 
     Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
+        UpdateTasks()
+    End Sub
+
+    Private Sub UpdateTasks()
         Try
             If CheckBox1.Checked Then
                 RichTextBox1.Text = ""
             End If
             Dim NumberOfHosts As Integer = ListBox1.Items.Count
             StatusLog("Starting MySQL Database Update")
-            If TruncateTables(My.Settings.MySQLServer, My.Settings.MySQLPort, My.Settings.MySQLDatabase, My.Settings.MySQLUsername, My.Settings.MySQLPassword) Then
+            If TruncateTables() Then
                 StatusLog("Number of hosts: " & NumberOfHosts)
                 If NumberOfHosts > 0 Then
                     For i = 0 To NumberOfHosts - 1
-                        GetHostTasks(My.Settings.PCName.Item(i), My.Settings.PCIPAddress.Item(i), My.Settings.PCPort.Item(i), My.Settings.PCPassword.Item(i), My.Settings.MySQLServer, My.Settings.MySQLPort, My.Settings.MySQLDatabase, My.Settings.MySQLUsername, My.Settings.MySQLPassword)
+                        GetHostTasks(My.Settings.PCName.Item(i), My.Settings.PCIPAddress.Item(i), My.Settings.PCPort.Item(i), My.Settings.PCPassword.Item(i))
                     Next
                 End If
             End If
@@ -129,10 +124,10 @@ Public Class Form1
         RichTextBox1.AppendText(Date.Now & " || " & text & vbNewLine)
         RichTextBox1.ScrollToCaret()
     End Sub
-    Private Function TruncateTables(MySQLServer As String, MySQLPort As Integer, MySQLDatabase As String, MySQLUsername As String, MySQLPassword As String) As Boolean
+    Private Function TruncateTables() As Boolean
         Try
             StatusLog("Truncating Table")
-            Dim MySQLConnString = "server=" & MySQLServer & ";Port=" & MySQLPort & ";Database=" & MySQLDatabase & ";Uid=" & MySQLUsername & ";Pwd=" & MySQLPassword & ";Check Parameters=false;default command timeout=999;Connection Timeout=999;Pooling=false;allow user variables=true;sslmode=none"
+            Dim MySQLConnString = "server=" & My.Settings.MySQLServer & ";Port=" & My.Settings.MySQLPort & ";Database=" & My.Settings.MySQLDatabase & ";Uid=" & My.Settings.MySQLUsername & ";Pwd=" & My.Settings.MySQLPassword & ";Check Parameters=false;default command timeout=999;Connection Timeout=999;Pooling=false;allow user variables=true;sslmode=none"
             Dim truncateSQL = "TRUNCATE TABLE tasks"
             Dim SQLConnection = New MySql.Data.MySqlClient.MySqlConnection(MySQLConnString)
             SQLConnection.Open()
@@ -145,9 +140,24 @@ Public Class Form1
             Return False
         End Try
     End Function
-    Private Async Sub GetHostTasks(host As String, ip As String, port As Integer, password As String, MySQLServer As String, MySQLPort As Integer, MySQLDatabase As String, MySQLUsername As String, MySQLPassword As String)
+    Private Sub InsertFinishedTask(Workunit As String, Project As String, ElapsedTime As String, Host As String, Optional PlanClass As String = "CPU")
+        If Not CheckIfTaskInFinishedTable(Workunit) Then
+
+        End If
+    End Sub
+
+    Private Function CheckIfTaskInFinishedTable(Task As String) As Boolean
+        Dim MySQLConnString = "server=" & My.Settings.MySQLServer & ";Port=" & My.Settings.MySQLPort & ";Database=" & My.Settings.MySQLDatabase & ";Uid=" & My.Settings.MySQLUsername & ";Pwd=" & My.Settings.MySQLPassword & ";Check Parameters=false;default command timeout=999;Connection Timeout=999;Pooling=false;allow user variables=true;sslmode=none"
+        Dim Query = "SELECT TaskName FROM finishedtasks WHERE TaskName = '" + Task + "'"
+        Dim SQLConnection = New MySql.Data.MySqlClient.MySqlConnection(MySQLConnString)
+        SQLConnection.Open()
+        Dim SQLReader As New MySql.Data.MySqlClient.MySqlCommand(Query, SQLConnection)
+        Dim Results As MySql.Data.MySqlClient.MySqlDataReader = SQLReader.ExecuteReader
+        Return Results.HasRows()
+    End Function
+    Private Async Sub GetHostTasks(host As String, ip As String, port As Integer, password As String)
         StatusLog("Getting Tasks for host " & host)
-        Dim MySQLConnString = "server=" & MySQLServer & ";Port=" & MySQLPort & ";Database=" & MySQLDatabase & ";Uid=" & MySQLUsername & ";Pwd=" & MySQLPassword & ";Check Parameters=false;default command timeout=999;Connection Timeout=999;Pooling=false;allow user variables=true;sslmode=none"
+        Dim MySQLConnString = "server=" & My.Settings.MySQLServer & ";Port=" & My.Settings.MySQLPort & ";Database=" & My.Settings.MySQLDatabase & ";Uid=" & My.Settings.MySQLUsername & ";Pwd=" & My.Settings.MySQLPassword & ";Check Parameters=false;default command timeout=999;Connection Timeout=999;Pooling=false;allow user variables=true;sslmode=none"
         Dim BOINCClient As New RpcClient
         Try
             Await BOINCClient.ConnectAsync(ip, port)
