@@ -26,11 +26,11 @@ function getTasksPerMachine($mysqli, $machine){
         $o='<table id="myTable" class="tablesorter">
             <thead> 
             <tr> 
-                    <th>Project</th> 
-                    <th>Workunit Name</th> 
-                    <th>Percent Done</th> 
-                    <th>Status</th> 
-                    <th>Elapsed Time</th> 
+                <th>Project</th> 
+                <th>Workunit Name</th> 
+                <th>Percent Done</th> 
+                <th>Status</th> 
+                <th>Elapsed Time</th> 
                 <th>Remaining Time</th>
                 <th>Deadline</th>
             </tr> 

@@ -36,6 +36,24 @@ CREATE TABLE `tasks` (
   `ReportDeadline` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`Pkey`)
 ) ENGINE=InnoDB AUTO_INCREMENT=691 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `finishedtasks`;
+CREATE TABLE `finishedtasks` (
+  `PKey` int(11) NOT NULL AUTO_INCREMENT,
+  `Project` varchar(256) DEFAULT NULL,
+  `TaskName` varchar(256) DEFAULT NULL,
+  `PCName` varchar(256) DEFAULT NULL,
+  `ElapsedTime` varchar(45) DEFAULT NULL,
+  `PlanClass` varchar(45) DEFAULT NULL,
+  `AddedDate` varchar(45) DEFAULT NULL,
+  `AddedTime` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`PKey`),
+  KEY `ProjectIndex` (`Project`),
+  KEY `PCNameIndex` (`PCName`),
+  KEY `PlanClassIndex` (`PlanClass`),
+  KEY `DateIndex` (`AddedDate`)
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

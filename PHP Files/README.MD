@@ -14,6 +14,8 @@ organization. You can click a machine in the list to go directly to that table.
 
 You can see an example here: [https://moisescardona.me/BOINC/boinc_tasks_per_machine.php](https://moisescardona.me/BOINC/boinc_tasks_per_machine.php)
 
+Additionally, you can display the finished tasks using the `finished_tasks.php` file. You can see an example here: [https://moisescardona.me/BOINC/finished_tasks.php](https://moisescardona.me/BOINC/finished_tasks.php)
+
 # Dependencies
 The files uses **tablesorter**. You can get it here: [https://github.com/Mottie/tablesorter](https://github.com/Mottie/tablesorter)
 
