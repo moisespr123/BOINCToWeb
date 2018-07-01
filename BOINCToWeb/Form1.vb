@@ -134,6 +134,7 @@ Public Class Form1
             Dim SQLCommand1 As New MySql.Data.MySqlClient.MySqlCommand(truncateSQL, SQLConnection)
             SQLCommand1.ExecuteNonQuery()
             StatusLog("Table truncated")
+            SQLConnection.Close()
             Return True
         Catch ex As Exception
             StatusLog("Coudn't truncate table")
@@ -142,7 +143,13 @@ Public Class Form1
     End Function
     Private Sub InsertFinishedTask(Workunit As String, Project As String, ElapsedTime As String, Host As String, Optional PlanClass As String = "CPU")
         If Not CheckIfTaskInFinishedTable(Workunit) Then
-
+            Dim MySQLConnString = "server=" & My.Settings.MySQLServer & ";Port=" & My.Settings.MySQLPort & ";Database=" & My.Settings.MySQLDatabase & ";Uid=" & My.Settings.MySQLUsername & ";Pwd=" & My.Settings.MySQLPassword & ";Check Parameters=false;default command timeout=999;Connection Timeout=999;Pooling=false;allow user variables=true;sslmode=none"
+            Dim Query = "INSERT INTO finishedtasks (Project, TaskName, PCName, ElapsedTime, PlanClass) VALUES ('" + Project + "','" + Workunit + "','" + Host + "','" + ElapsedTime + "','" + PlanClass + "')"
+            Dim SQLConnection = New MySql.Data.MySqlClient.MySqlConnection(MySQLConnString)
+            SQLConnection.Open()
+            Dim SQLCommand As New MySql.Data.MySqlClient.MySqlCommand(Query, SQLConnection)
+            SQLCommand.ExecuteNonQuery()
+            SQLConnection.Close()
         End If
     End Sub
 
@@ -151,9 +158,11 @@ Public Class Form1
         Dim Query = "SELECT TaskName FROM finishedtasks WHERE TaskName = '" + Task + "'"
         Dim SQLConnection = New MySql.Data.MySqlClient.MySqlConnection(MySQLConnString)
         SQLConnection.Open()
-        Dim SQLReader As New MySql.Data.MySqlClient.MySqlCommand(Query, SQLConnection)
-        Dim Results As MySql.Data.MySqlClient.MySqlDataReader = SQLReader.ExecuteReader
-        Return Results.HasRows()
+        Dim SQLCommand As New MySql.Data.MySqlClient.MySqlCommand(Query, SQLConnection)
+        Dim Results As MySql.Data.MySqlClient.MySqlDataReader = SQLCommand.ExecuteReader
+        Dim HasTask = Results.HasRows()
+        SQLConnection.Close()
+        Return HasTask
     End Function
     Private Async Sub GetHostTasks(host As String, ip As String, port As Integer, password As String)
         StatusLog("Getting Tasks for host " & host)
@@ -168,6 +177,21 @@ Public Class Form1
                 For Each result In Await BOINCClient.GetResultsAsync()
                     Dim Percent As Double
                     Dim Status As String = ""
+                    Dim ProjectName As String = ""
+                    For Each project In ProjectList
+                        If project.MasterUrl = result.ProjectUrl Then
+                            ProjectName = project.ProjectName
+                            Exit For
+                        End If
+                    Next
+                    Dim ElapsedTime As TimeSpan
+                    If result.ElapsedTime.TotalMilliseconds = 0 Then
+                        ElapsedTime = result.FinalElapsedTime
+                    Else
+                        ElapsedTime = result.ElapsedTime
+                    End If
+                    Dim FormattedElapsedTime As String = String.Format("{0}:{1:mm}:{1:ss}", CInt(Math.Truncate(ElapsedTime.TotalHours)), ElapsedTime)
+                    Dim RemainingTime As TimeSpan = result.EstimatedCpuTimeRemaining
                     If result.ActiveTask = True And result.ReadyToReport = False And (result.ActiveTaskState <> 9 And result.ActiveTaskState <> 0) Then
                         If String.IsNullOrEmpty(result.PlanClass) Then
                             Status = "Running"
@@ -192,27 +216,14 @@ Public Class Form1
                     ElseIf result.ActiveTask = False And result.ReadyToReport = True Then
                         If String.IsNullOrEmpty(result.PlanClass) Then
                             Status = "Ready to report"
+                            InsertFinishedTask(result.WorkunitName, ProjectName, FormattedElapsedTime, host)
                         Else
                             Status = "Ready to report (" & result.PlanClass & ")"
+                            InsertFinishedTask(result.WorkunitName, ProjectName, FormattedElapsedTime, host, result.PlanClass)
                         End If
                         Percent = 100
                     End If
-                    Dim ElapsedTime As TimeSpan
-                    If result.ElapsedTime.TotalMilliseconds = 0 Then
-                        ElapsedTime = result.FinalElapsedTime
-                    Else
-                        ElapsedTime = result.ElapsedTime
-                    End If
-
-                    Dim RemainingTime As TimeSpan = result.EstimatedCpuTimeRemaining
-                    Dim ProjectName As String = ""
-                    For Each project In ProjectList
-                        If project.MasterUrl = result.ProjectUrl Then
-                            ProjectName = project.ProjectName
-                            Exit For
-                        End If
-                    Next
-                    SQLInsert += "INSERT INTO tasks (TaskName, Project, PercentDone, Status, PCName, ElapsedTime, RemainingTime, ReportDeadline) VALUES ('" & result.WorkunitName & "', '" & ProjectName & "', '" & Percent & "', '" & Status & "', '" & host & "', '" & String.Format("{0}:{1:mm}:{1:ss}", CInt(Math.Truncate(ElapsedTime.TotalHours)), ElapsedTime) & "', '" & String.Format("{0}:{1:mm}:{1:ss}", CInt(Math.Truncate(RemainingTime.TotalHours)), RemainingTime) & "', '" & result.ReportDeadline.ToString("MM/dd/yyyy hh:mm:ss tt") & " UTC');"
+                    SQLInsert += "INSERT INTO tasks (TaskName, Project, PercentDone, Status, PCName, ElapsedTime, RemainingTime, ReportDeadline) VALUES ('" & result.WorkunitName & "', '" & ProjectName & "', '" & Percent & "', '" & Status & "', '" & host & "', '" & FormattedElapsedTime & "', '" & String.Format("{0}:{1:mm}:{1:ss}", CInt(Math.Truncate(RemainingTime.TotalHours)), RemainingTime) & "', '" & result.ReportDeadline.ToString("MM/dd/yyyy hh:mm:ss tt") & " UTC');"
                 Next
             End If
             Dim SQLConnection = New MySql.Data.MySqlClient.MySqlConnection(MySQLConnString)
@@ -220,6 +231,7 @@ Public Class Form1
             Dim SQLCommand As New MySql.Data.MySqlClient.MySqlCommand(SQLInsert, SQLConnection)
             SQLCommand.ExecuteNonQuery()
             StatusLog("Finished getting tasks for host " & host)
+            SQLConnection.Close()
         Catch ex As Exception
             StatusLog("Failed getting tasks for host " & host)
         End Try
