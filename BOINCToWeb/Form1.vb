@@ -33,23 +33,7 @@ Public Class Form1
     End Sub
 
     Private Async Sub AddToListButton_Click(sender As Object, e As EventArgs) Handles AddToListButton.Click
-        Dim BOINCClient As New RpcClient
-        Try
-            Await BOINCClient.ConnectAsync(PCAddressTextbox.Text, PCPortTextbox.Text)
-            Dim Authorized = Await BOINCClient.AuthorizeAsync(PCPasswordTextbox.Text)
-            If Authorized = True Then
-                My.Settings.PCName.Add(PCNameTextbox.Text)
-                My.Settings.PCIPAddress.Add(PCAddressTextbox.Text)
-                My.Settings.PCPassword.Add(PCPasswordTextbox.Text)
-                My.Settings.PCPort.Add(PCPortTextbox.Text)
-                ListBox1.Items.Add(PCNameTextbox.Text)
-                My.Settings.Save()
-            Else
-                MsgBox("Could not connect. Please check the PC details and try again")
-            End If
-        Catch ex As Exception
-            MsgBox("Could not connect. Please check the PC details and try again")
-        End Try
+       Await AddOrUpdateHost()
     End Sub
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -124,6 +108,33 @@ Public Class Form1
         LogRichTextBox.AppendText(Date.Now & " || " & text & vbNewLine)
         LogRichTextBox.ScrollToCaret()
     End Sub
+    Private Async Function AddOrUpdateHost(Optional Update As Boolean = False) As Task
+        Dim BOINCClient As New RpcClient
+        Try
+            Await BOINCClient.ConnectAsync(PCAddressTextbox.Text, PCPortTextbox.Text)
+            Dim Authorized = Await BOINCClient.AuthorizeAsync(PCPasswordTextbox.Text)
+            If Authorized = True Then
+                If Update Then
+                    My.Settings.PCName.Item(ListBox1.SelectedIndex) = PCNameTextbox.Text
+                    My.Settings.PCIPAddress.Item(ListBox1.SelectedIndex) = PCAddressTextbox.Text
+                    My.Settings.PCPassword.Item(ListBox1.SelectedIndex) = PCPasswordTextbox.Text
+                    My.Settings.PCPort.Item(ListBox1.SelectedIndex) = PCPortTextbox.Text
+                    ListBox1.Items.Item(ListBox1.SelectedIndex) = PCNameTextbox.Text
+                Else
+                    My.Settings.PCName.Add(PCNameTextbox.Text)
+                    My.Settings.PCIPAddress.Add(PCAddressTextbox.Text)
+                    My.Settings.PCPassword.Add(PCPasswordTextbox.Text)
+                    My.Settings.PCPort.Add(PCPortTextbox.Text)
+                    ListBox1.Items.Add(PCNameTextbox.Text)
+                End If
+                My.Settings.Save()
+            Else
+                MsgBox("Could not connect. Please check the PC details and try again")
+            End If
+        Catch ex As Exception
+            MsgBox("Could not connect. Please check the PC details and try again")
+        End Try
+    End Function
     Private Function TruncateTables() As Boolean
         Try
             StatusLog("Truncating Table")
@@ -270,23 +281,7 @@ Public Class Form1
         TrayIcon.Visible = False
     End Sub
 
-    Private async Sub UpdatePCButton_Click(sender As Object, e As EventArgs) Handles UpdatePCButton.Click
-        Dim BOINCClient As New RpcClient
-        Try
-            Await BOINCClient.ConnectAsync(PCAddressTextbox.Text, PCPortTextbox.Text)
-            Dim Authorized = Await BOINCClient.AuthorizeAsync(PCPasswordTextbox.Text)
-            If Authorized = True Then
-                My.Settings.PCName.Item(ListBox1.SelectedIndex) = PCNameTextbox.Text
-                My.Settings.PCIPAddress.Item(ListBox1.SelectedIndex) = PCAddressTextbox.Text
-                My.Settings.PCPassword.Item(ListBox1.SelectedIndex) = PCPasswordTextbox.Text
-                My.Settings.PCPort.Item(ListBox1.SelectedIndex) = PCPortTextbox.Text
-                ListBox1.Items.Item(ListBox1.SelectedIndex) = PCNameTextbox.Text
-                My.Settings.Save()
-            Else
-                MsgBox("Could not connect. Please check the PC details and try again")
-            End If
-        Catch ex As Exception
-            MsgBox("Could not connect. Please check the PC details and try again")
-        End Try
+    Private Async Sub UpdatePCButton_Click(sender As Object, e As EventArgs) Handles UpdatePCButton.Click
+        Await AddOrUpdateHost(True)
     End Sub
 End Class
