@@ -47,7 +47,7 @@ if (mysqli_num_rows($hostsresult) > 0) {
 }
 echo "<form method='post'>
         Date to see tasks (None for all): <input type='text' id='datepicker' name='date'  autocomplete='off' value='$selecteddate' /></br>
-        Host: <select name='host'>" . $hosts . "</select>
+        Host: <select name='host'>" . $hosts . "</select></br>
         <input name='viewtasks' type='submit' value='View tasks' />
       </form>
       <table id=\"myTable\" class=\"tablesorter\">
