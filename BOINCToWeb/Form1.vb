@@ -4,21 +4,21 @@ Public Class Form1
 
     Private Running As Boolean = False
     Private Sub StartStopButton_Click(sender As Object, e As EventArgs) Handles StartStopButton.Click
-        My.Settings.MySQLServer = TextBox4.Text
-        My.Settings.MySQLPort = TextBox5.Text
-        My.Settings.MySQLDatabase = TextBox6.Text
-        My.Settings.MySQLUsername = TextBox7.Text
-        My.Settings.MySQLPassword = TextBox8.Text
-        My.Settings.TimeToWait = NumericUpDown1.Value
+        My.Settings.MySQLServer = MySQLServerTextbox.Text
+        My.Settings.MySQLPort = MySQLPortTextbox.Text
+        My.Settings.MySQLDatabase = MySQLDatabaseTextbox.Text
+        My.Settings.MySQLUsername = MySQLUsernameTextbox.Text
+        My.Settings.MySQLPassword = MySQLPasswordTextbox.Text
+        My.Settings.TimeToWait = TimeUpDownBox.Value
         My.Settings.Save()
         RunOrStop()
     End Sub
     Private Sub RunOrStop()
-        If NumericUpDown1.Value > 0 Then
+        If TimeUpDownBox.Value > 0 Then
             If Not Running Then
                 Running = True
                 StartStopButton.Text = "Stop Fetching"
-                Timer1.Interval = NumericUpDown1.Value * 60 * 1000
+                Timer1.Interval = TimeUpDownBox.Value * 60 * 1000
                 Timer1.Start()
                 UpdateTasks()
             Else
@@ -35,14 +35,14 @@ Public Class Form1
     Private Async Sub AddToListButton_Click(sender As Object, e As EventArgs) Handles AddToListButton.Click
         Dim BOINCClient As New RpcClient
         Try
-            Await BOINCClient.ConnectAsync(TextBox2.Text, TextBox9.Text)
-            Dim Authorized = Await BOINCClient.AuthorizeAsync(TextBox3.Text)
+            Await BOINCClient.ConnectAsync(PCAddressTextbox.Text, PCPortTextbox.Text)
+            Dim Authorized = Await BOINCClient.AuthorizeAsync(PCPasswordTextbox.Text)
             If Authorized = True Then
-                My.Settings.PCName.Add(TextBox1.Text)
-                My.Settings.PCIPAddress.Add(TextBox2.Text)
-                My.Settings.PCPassword.Add(TextBox3.Text)
-                My.Settings.PCPort.Add(TextBox9.Text)
-                ListBox1.Items.Add(TextBox1.Text)
+                My.Settings.PCName.Add(PCNameTextbox.Text)
+                My.Settings.PCIPAddress.Add(PCAddressTextbox.Text)
+                My.Settings.PCPassword.Add(PCPasswordTextbox.Text)
+                My.Settings.PCPort.Add(PCPortTextbox.Text)
+                ListBox1.Items.Add(PCNameTextbox.Text)
                 My.Settings.Save()
             Else
                 MsgBox("Could not connect. Please check the PC details and try again")
@@ -62,13 +62,13 @@ Public Class Form1
                 ListBox1.Items.Add(item)
             Next
         End If
-        If My.Settings.EraseLog = True Then CheckBox1.Checked = True Else CheckBox1.Checked = False
-        TextBox4.Text = My.Settings.MySQLServer
-        TextBox5.Text = My.Settings.MySQLPort
-        TextBox6.Text = My.Settings.MySQLDatabase
-        TextBox7.Text = My.Settings.MySQLUsername
-        TextBox8.Text = My.Settings.MySQLPassword
-        If Not String.IsNullOrEmpty(My.Settings.TimeToWait) Then NumericUpDown1.Value = My.Settings.TimeToWait
+        If My.Settings.EraseLog = True Then EraseLogCheckbox.Checked = True Else EraseLogCheckbox.Checked = False
+        MySQLServerTextbox.Text = My.Settings.MySQLServer
+        MySQLPortTextbox.Text = My.Settings.MySQLPort
+        MySQLDatabaseTextbox.Text = My.Settings.MySQLDatabase
+        MySQLUsernameTextbox.Text = My.Settings.MySQLUsername
+        MySQLPasswordTextbox.Text = My.Settings.MySQLPassword
+        If Not String.IsNullOrEmpty(My.Settings.TimeToWait) Then TimeUpDownBox.Value = My.Settings.TimeToWait
         Dim vars As String() = Environment.GetCommandLineArgs
         If vars.Count > 1 Then
             If vars(1) = "-s" Then
@@ -80,10 +80,10 @@ Public Class Form1
 
     Private Sub ListBox1_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListBox1.SelectedIndexChanged
         Try
-            TextBox1.Text = ListBox1.SelectedItem
-            TextBox2.Text = My.Settings.PCIPAddress.Item(ListBox1.SelectedIndex)
-            TextBox3.Text = My.Settings.PCPassword.Item(ListBox1.SelectedIndex)
-            TextBox9.Text = My.Settings.PCPort.Item(ListBox1.SelectedIndex)
+            PCNameTextbox.Text = ListBox1.SelectedItem
+            PCAddressTextbox.Text = My.Settings.PCIPAddress.Item(ListBox1.SelectedIndex)
+            PCPasswordTextbox.Text = My.Settings.PCPassword.Item(ListBox1.SelectedIndex)
+            PCPortTextbox.Text = My.Settings.PCPort.Item(ListBox1.SelectedIndex)
         Catch ex As Exception
         End Try
     End Sub
@@ -103,8 +103,8 @@ Public Class Form1
 
     Private Sub UpdateTasks()
         Try
-            If CheckBox1.Checked Then
-                RichTextBox1.Text = ""
+            If EraseLogCheckbox.Checked Then
+                LogRichTextBox.Text = ""
             End If
             Dim NumberOfHosts As Integer = ListBox1.Items.Count
             StatusLog("Starting MySQL Database Update")
@@ -121,8 +121,8 @@ Public Class Form1
         End Try
     End Sub
     Private Sub StatusLog(text As String)
-        RichTextBox1.AppendText(Date.Now & " || " & text & vbNewLine)
-        RichTextBox1.ScrollToCaret()
+        LogRichTextBox.AppendText(Date.Now & " || " & text & vbNewLine)
+        LogRichTextBox.ScrollToCaret()
     End Sub
     Private Function TruncateTables() As Boolean
         Try
@@ -237,8 +237,8 @@ Public Class Form1
         End Try
     End Sub
 
-    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBox1.CheckedChanged
-        If CheckBox1.Checked Then
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles EraseLogCheckbox.CheckedChanged
+        If EraseLogCheckbox.Checked Then
             My.Settings.EraseLog = True
             My.Settings.Save()
         Else
@@ -247,11 +247,11 @@ Public Class Form1
         End If
     End Sub
 
-    Private Sub RichTextBox1_TextChanged(sender As Object, e As EventArgs) Handles RichTextBox1.TextChanged
-        RichTextBox1.SelectionStart = RichTextBox1.Text.Length
+    Private Sub RichTextBox1_TextChanged(sender As Object, e As EventArgs) Handles LogRichTextBox.TextChanged
+        LogRichTextBox.SelectionStart = LogRichTextBox.Text.Length
     End Sub
 
-    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles Button4.Click
+    Private Sub Button4_Click(sender As Object, e As EventArgs) Handles DonateButton.Click
         Donations_Addresses.ShowDialog()
     End Sub
 
@@ -268,5 +268,25 @@ Public Class Form1
         Me.WindowState = FormWindowState.Normal
         Me.ShowInTaskbar = True
         TrayIcon.Visible = False
+    End Sub
+
+    Private async Sub UpdatePCButton_Click(sender As Object, e As EventArgs) Handles UpdatePCButton.Click
+        Dim BOINCClient As New RpcClient
+        Try
+            Await BOINCClient.ConnectAsync(PCAddressTextbox.Text, PCPortTextbox.Text)
+            Dim Authorized = Await BOINCClient.AuthorizeAsync(PCPasswordTextbox.Text)
+            If Authorized = True Then
+                My.Settings.PCName.Item(ListBox1.SelectedIndex) = PCNameTextbox.Text
+                My.Settings.PCIPAddress.Item(ListBox1.SelectedIndex) = PCAddressTextbox.Text
+                My.Settings.PCPassword.Item(ListBox1.SelectedIndex) = PCPasswordTextbox.Text
+                My.Settings.PCPort.Item(ListBox1.SelectedIndex) = PCPortTextbox.Text
+                ListBox1.Items.Item(ListBox1.SelectedIndex) = PCNameTextbox.Text
+                My.Settings.Save()
+            Else
+                MsgBox("Could not connect. Please check the PC details and try again")
+            End If
+        Catch ex As Exception
+            MsgBox("Could not connect. Please check the PC details and try again")
+        End Try
     End Sub
 End Class

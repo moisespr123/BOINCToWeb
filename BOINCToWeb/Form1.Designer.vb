@@ -24,48 +24,49 @@ Partial Class Form1
     Private Sub InitializeComponent()
         Me.components = New System.ComponentModel.Container()
         Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Form1))
-        Me.RichTextBox1 = New System.Windows.Forms.RichTextBox()
+        Me.LogRichTextBox = New System.Windows.Forms.RichTextBox()
         Me.StartStopButton = New System.Windows.Forms.Button()
         Me.ListBox1 = New System.Windows.Forms.ListBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.Label2 = New System.Windows.Forms.Label()
-        Me.TextBox1 = New System.Windows.Forms.TextBox()
-        Me.TextBox2 = New System.Windows.Forms.TextBox()
-        Me.TextBox3 = New System.Windows.Forms.TextBox()
+        Me.PCNameTextbox = New System.Windows.Forms.TextBox()
+        Me.PCAddressTextbox = New System.Windows.Forms.TextBox()
+        Me.PCPasswordTextbox = New System.Windows.Forms.TextBox()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.AddToListButton = New System.Windows.Forms.Button()
         Me.RemoveButton = New System.Windows.Forms.Button()
         Me.Label4 = New System.Windows.Forms.Label()
-        Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.MySQLServerTextbox = New System.Windows.Forms.TextBox()
         Me.Label5 = New System.Windows.Forms.Label()
-        Me.TextBox5 = New System.Windows.Forms.TextBox()
+        Me.MySQLPortTextbox = New System.Windows.Forms.TextBox()
         Me.Label6 = New System.Windows.Forms.Label()
-        Me.TextBox6 = New System.Windows.Forms.TextBox()
-        Me.TextBox7 = New System.Windows.Forms.TextBox()
+        Me.MySQLDatabaseTextbox = New System.Windows.Forms.TextBox()
+        Me.MySQLUsernameTextbox = New System.Windows.Forms.TextBox()
         Me.Label7 = New System.Windows.Forms.Label()
-        Me.TextBox8 = New System.Windows.Forms.TextBox()
+        Me.MySQLPasswordTextbox = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
         Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
-        Me.NumericUpDown1 = New System.Windows.Forms.NumericUpDown()
+        Me.TimeUpDownBox = New System.Windows.Forms.NumericUpDown()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
         Me.Label11 = New System.Windows.Forms.Label()
-        Me.TextBox9 = New System.Windows.Forms.TextBox()
+        Me.PCPortTextbox = New System.Windows.Forms.TextBox()
         Me.Label12 = New System.Windows.Forms.Label()
         Me.Label13 = New System.Windows.Forms.Label()
-        Me.CheckBox1 = New System.Windows.Forms.CheckBox()
-        Me.Button4 = New System.Windows.Forms.Button()
+        Me.EraseLogCheckbox = New System.Windows.Forms.CheckBox()
+        Me.DonateButton = New System.Windows.Forms.Button()
         Me.TrayIcon = New System.Windows.Forms.NotifyIcon(Me.components)
-        CType(Me.NumericUpDown1,System.ComponentModel.ISupportInitialize).BeginInit
+        Me.UpdatePCButton = New System.Windows.Forms.Button()
+        CType(Me.TimeUpDownBox,System.ComponentModel.ISupportInitialize).BeginInit
         Me.SuspendLayout
         '
-        'RichTextBox1
+        'LogRichTextBox
         '
-        Me.RichTextBox1.Location = New System.Drawing.Point(363, 25)
-        Me.RichTextBox1.Name = "RichTextBox1"
-        Me.RichTextBox1.Size = New System.Drawing.Size(402, 325)
-        Me.RichTextBox1.TabIndex = 0
-        Me.RichTextBox1.Text = ""
+        Me.LogRichTextBox.Location = New System.Drawing.Point(363, 25)
+        Me.LogRichTextBox.Name = "LogRichTextBox"
+        Me.LogRichTextBox.Size = New System.Drawing.Size(402, 325)
+        Me.LogRichTextBox.TabIndex = 0
+        Me.LogRichTextBox.Text = ""
         '
         'StartStopButton
         '
@@ -81,7 +82,7 @@ Partial Class Form1
         Me.ListBox1.FormattingEnabled = true
         Me.ListBox1.Location = New System.Drawing.Point(15, 222)
         Me.ListBox1.Name = "ListBox1"
-        Me.ListBox1.Size = New System.Drawing.Size(158, 147)
+        Me.ListBox1.Size = New System.Drawing.Size(158, 121)
         Me.ListBox1.TabIndex = 6
         '
         'Label1
@@ -102,27 +103,27 @@ Partial Class Form1
         Me.Label2.TabIndex = 4
         Me.Label2.Text = "BOINC PC IP Address:"
         '
-        'TextBox1
+        'PCNameTextbox
         '
-        Me.TextBox1.Location = New System.Drawing.Point(15, 25)
-        Me.TextBox1.Name = "TextBox1"
-        Me.TextBox1.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox1.TabIndex = 1
+        Me.PCNameTextbox.Location = New System.Drawing.Point(15, 25)
+        Me.PCNameTextbox.Name = "PCNameTextbox"
+        Me.PCNameTextbox.Size = New System.Drawing.Size(158, 20)
+        Me.PCNameTextbox.TabIndex = 1
         '
-        'TextBox2
+        'PCAddressTextbox
         '
-        Me.TextBox2.Location = New System.Drawing.Point(15, 67)
-        Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox2.TabIndex = 2
+        Me.PCAddressTextbox.Location = New System.Drawing.Point(15, 67)
+        Me.PCAddressTextbox.Name = "PCAddressTextbox"
+        Me.PCAddressTextbox.Size = New System.Drawing.Size(158, 20)
+        Me.PCAddressTextbox.TabIndex = 2
         '
-        'TextBox3
+        'PCPasswordTextbox
         '
-        Me.TextBox3.Location = New System.Drawing.Point(15, 159)
-        Me.TextBox3.Name = "TextBox3"
-        Me.TextBox3.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9679)
-        Me.TextBox3.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox3.TabIndex = 4
+        Me.PCPasswordTextbox.Location = New System.Drawing.Point(15, 159)
+        Me.PCPasswordTextbox.Name = "PCPasswordTextbox"
+        Me.PCPasswordTextbox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9679)
+        Me.PCPasswordTextbox.Size = New System.Drawing.Size(158, 20)
+        Me.PCPasswordTextbox.TabIndex = 4
         '
         'Label3
         '
@@ -160,12 +161,12 @@ Partial Class Form1
         Me.Label4.TabIndex = 11
         Me.Label4.Text = "MySQL Server:"
         '
-        'TextBox4
+        'MySQLServerTextbox
         '
-        Me.TextBox4.Location = New System.Drawing.Point(190, 25)
-        Me.TextBox4.Name = "TextBox4"
-        Me.TextBox4.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox4.TabIndex = 8
+        Me.MySQLServerTextbox.Location = New System.Drawing.Point(190, 25)
+        Me.MySQLServerTextbox.Name = "MySQLServerTextbox"
+        Me.MySQLServerTextbox.Size = New System.Drawing.Size(158, 20)
+        Me.MySQLServerTextbox.TabIndex = 8
         '
         'Label5
         '
@@ -176,13 +177,13 @@ Partial Class Form1
         Me.Label5.TabIndex = 13
         Me.Label5.Text = "MySQL Port:"
         '
-        'TextBox5
+        'MySQLPortTextbox
         '
-        Me.TextBox5.Location = New System.Drawing.Point(190, 67)
-        Me.TextBox5.Name = "TextBox5"
-        Me.TextBox5.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox5.TabIndex = 9
-        Me.TextBox5.Text = "3306"
+        Me.MySQLPortTextbox.Location = New System.Drawing.Point(190, 67)
+        Me.MySQLPortTextbox.Name = "MySQLPortTextbox"
+        Me.MySQLPortTextbox.Size = New System.Drawing.Size(158, 20)
+        Me.MySQLPortTextbox.TabIndex = 9
+        Me.MySQLPortTextbox.Text = "3306"
         '
         'Label6
         '
@@ -193,19 +194,19 @@ Partial Class Form1
         Me.Label6.TabIndex = 15
         Me.Label6.Text = "MySQL Database:"
         '
-        'TextBox6
+        'MySQLDatabaseTextbox
         '
-        Me.TextBox6.Location = New System.Drawing.Point(190, 115)
-        Me.TextBox6.Name = "TextBox6"
-        Me.TextBox6.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox6.TabIndex = 10
+        Me.MySQLDatabaseTextbox.Location = New System.Drawing.Point(190, 115)
+        Me.MySQLDatabaseTextbox.Name = "MySQLDatabaseTextbox"
+        Me.MySQLDatabaseTextbox.Size = New System.Drawing.Size(158, 20)
+        Me.MySQLDatabaseTextbox.TabIndex = 10
         '
-        'TextBox7
+        'MySQLUsernameTextbox
         '
-        Me.TextBox7.Location = New System.Drawing.Point(190, 159)
-        Me.TextBox7.Name = "TextBox7"
-        Me.TextBox7.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox7.TabIndex = 11
+        Me.MySQLUsernameTextbox.Location = New System.Drawing.Point(190, 159)
+        Me.MySQLUsernameTextbox.Name = "MySQLUsernameTextbox"
+        Me.MySQLUsernameTextbox.Size = New System.Drawing.Size(158, 20)
+        Me.MySQLUsernameTextbox.TabIndex = 11
         '
         'Label7
         '
@@ -216,13 +217,13 @@ Partial Class Form1
         Me.Label7.TabIndex = 17
         Me.Label7.Text = "MySQL Username:"
         '
-        'TextBox8
+        'MySQLPasswordTextbox
         '
-        Me.TextBox8.Location = New System.Drawing.Point(190, 207)
-        Me.TextBox8.Name = "TextBox8"
-        Me.TextBox8.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9679)
-        Me.TextBox8.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox8.TabIndex = 12
+        Me.MySQLPasswordTextbox.Location = New System.Drawing.Point(190, 207)
+        Me.MySQLPasswordTextbox.Name = "MySQLPasswordTextbox"
+        Me.MySQLPasswordTextbox.PasswordChar = Global.Microsoft.VisualBasic.ChrW(9679)
+        Me.MySQLPasswordTextbox.Size = New System.Drawing.Size(158, 20)
+        Me.MySQLPasswordTextbox.TabIndex = 12
         '
         'Label8
         '
@@ -236,14 +237,14 @@ Partial Class Form1
         'Timer1
         '
         '
-        'NumericUpDown1
+        'TimeUpDownBox
         '
-        Me.NumericUpDown1.Location = New System.Drawing.Point(191, 255)
-        Me.NumericUpDown1.Minimum = New Decimal(New Integer() {5, 0, 0, 65536})
-        Me.NumericUpDown1.Name = "NumericUpDown1"
-        Me.NumericUpDown1.Size = New System.Drawing.Size(48, 20)
-        Me.NumericUpDown1.TabIndex = 13
-        Me.NumericUpDown1.Value = New Decimal(New Integer() {5, 0, 0, 65536})
+        Me.TimeUpDownBox.Location = New System.Drawing.Point(191, 255)
+        Me.TimeUpDownBox.Minimum = New Decimal(New Integer() {5, 0, 0, 65536})
+        Me.TimeUpDownBox.Name = "TimeUpDownBox"
+        Me.TimeUpDownBox.Size = New System.Drawing.Size(48, 20)
+        Me.TimeUpDownBox.TabIndex = 13
+        Me.TimeUpDownBox.Value = New Decimal(New Integer() {5, 0, 0, 65536})
         '
         'Label9
         '
@@ -272,13 +273,13 @@ Partial Class Form1
         Me.Label11.TabIndex = 24
         Me.Label11.Text = "Status:"
         '
-        'TextBox9
+        'PCPortTextbox
         '
-        Me.TextBox9.Location = New System.Drawing.Point(15, 115)
-        Me.TextBox9.Name = "TextBox9"
-        Me.TextBox9.Size = New System.Drawing.Size(158, 20)
-        Me.TextBox9.TabIndex = 3
-        Me.TextBox9.Text = "31416"
+        Me.PCPortTextbox.Location = New System.Drawing.Point(15, 115)
+        Me.PCPortTextbox.Name = "PCPortTextbox"
+        Me.PCPortTextbox.Size = New System.Drawing.Size(158, 20)
+        Me.PCPortTextbox.TabIndex = 3
+        Me.PCPortTextbox.Text = "31416"
         '
         'Label12
         '
@@ -298,105 +299,116 @@ Partial Class Form1
         Me.Label13.TabIndex = 27
         Me.Label13.Text = "Developed by Moisés Cardona"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"v1.3 (dev)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"http://moisescardona.me"
         '
-        'CheckBox1
+        'EraseLogCheckbox
         '
-        Me.CheckBox1.AutoSize = true
-        Me.CheckBox1.Location = New System.Drawing.Point(363, 356)
-        Me.CheckBox1.Name = "CheckBox1"
-        Me.CheckBox1.Size = New System.Drawing.Size(194, 17)
-        Me.CheckBox1.TabIndex = 15
-        Me.CheckBox1.Text = "Erase Log when updating database"
-        Me.CheckBox1.UseVisualStyleBackColor = true
+        Me.EraseLogCheckbox.AutoSize = true
+        Me.EraseLogCheckbox.Location = New System.Drawing.Point(363, 356)
+        Me.EraseLogCheckbox.Name = "EraseLogCheckbox"
+        Me.EraseLogCheckbox.Size = New System.Drawing.Size(194, 17)
+        Me.EraseLogCheckbox.TabIndex = 15
+        Me.EraseLogCheckbox.Text = "Erase Log when updating database"
+        Me.EraseLogCheckbox.UseVisualStyleBackColor = true
         '
-        'Button4
+        'DonateButton
         '
-        Me.Button4.Location = New System.Drawing.Point(363, 378)
-        Me.Button4.Name = "Button4"
-        Me.Button4.Size = New System.Drawing.Size(253, 23)
-        Me.Button4.TabIndex = 16
-        Me.Button4.Text = "Like this software? DONATE!"
-        Me.Button4.UseVisualStyleBackColor = true
+        Me.DonateButton.Location = New System.Drawing.Point(363, 378)
+        Me.DonateButton.Name = "DonateButton"
+        Me.DonateButton.Size = New System.Drawing.Size(253, 23)
+        Me.DonateButton.TabIndex = 16
+        Me.DonateButton.Text = "Like this software? DONATE!"
+        Me.DonateButton.UseVisualStyleBackColor = true
         '
         'TrayIcon
         '
         Me.TrayIcon.Icon = CType(resources.GetObject("TrayIcon.Icon"),System.Drawing.Icon)
         Me.TrayIcon.Text = "BOINC To Web Software"
         '
+        'UpdatePCButton
+        '
+        Me.UpdatePCButton.Location = New System.Drawing.Point(12, 349)
+        Me.UpdatePCButton.Name = "UpdatePCButton"
+        Me.UpdatePCButton.Size = New System.Drawing.Size(161, 23)
+        Me.UpdatePCButton.TabIndex = 28
+        Me.UpdatePCButton.Text = "Update PC"
+        Me.UpdatePCButton.UseVisualStyleBackColor = true
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6!, 13!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(777, 413)
-        Me.Controls.Add(Me.Button4)
-        Me.Controls.Add(Me.CheckBox1)
+        Me.Controls.Add(Me.UpdatePCButton)
+        Me.Controls.Add(Me.DonateButton)
+        Me.Controls.Add(Me.EraseLogCheckbox)
         Me.Controls.Add(Me.Label13)
-        Me.Controls.Add(Me.TextBox9)
+        Me.Controls.Add(Me.PCPortTextbox)
         Me.Controls.Add(Me.Label12)
         Me.Controls.Add(Me.Label11)
         Me.Controls.Add(Me.Label10)
         Me.Controls.Add(Me.Label9)
-        Me.Controls.Add(Me.NumericUpDown1)
-        Me.Controls.Add(Me.TextBox8)
+        Me.Controls.Add(Me.TimeUpDownBox)
+        Me.Controls.Add(Me.MySQLPasswordTextbox)
         Me.Controls.Add(Me.Label8)
-        Me.Controls.Add(Me.TextBox7)
+        Me.Controls.Add(Me.MySQLUsernameTextbox)
         Me.Controls.Add(Me.Label7)
-        Me.Controls.Add(Me.TextBox6)
+        Me.Controls.Add(Me.MySQLDatabaseTextbox)
         Me.Controls.Add(Me.Label6)
-        Me.Controls.Add(Me.TextBox5)
+        Me.Controls.Add(Me.MySQLPortTextbox)
         Me.Controls.Add(Me.Label5)
-        Me.Controls.Add(Me.TextBox4)
+        Me.Controls.Add(Me.MySQLServerTextbox)
         Me.Controls.Add(Me.Label4)
         Me.Controls.Add(Me.RemoveButton)
         Me.Controls.Add(Me.AddToListButton)
-        Me.Controls.Add(Me.TextBox3)
+        Me.Controls.Add(Me.PCPasswordTextbox)
         Me.Controls.Add(Me.Label3)
-        Me.Controls.Add(Me.TextBox2)
-        Me.Controls.Add(Me.TextBox1)
+        Me.Controls.Add(Me.PCAddressTextbox)
+        Me.Controls.Add(Me.PCNameTextbox)
         Me.Controls.Add(Me.Label2)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.ListBox1)
         Me.Controls.Add(Me.StartStopButton)
-        Me.Controls.Add(Me.RichTextBox1)
+        Me.Controls.Add(Me.LogRichTextBox)
         Me.Icon = CType(resources.GetObject("$this.Icon"),System.Drawing.Icon)
         Me.MaximizeBox = false
         Me.Name = "Form1"
         Me.Text = "BOINC to Database to show tasks on web"
-        CType(Me.NumericUpDown1,System.ComponentModel.ISupportInitialize).EndInit
+        CType(Me.TimeUpDownBox,System.ComponentModel.ISupportInitialize).EndInit
         Me.ResumeLayout(false)
         Me.PerformLayout
 
 End Sub
 
-    Friend WithEvents RichTextBox1 As RichTextBox
+    Friend WithEvents LogRichTextBox As RichTextBox
     Friend WithEvents StartStopButton As Button
     Friend WithEvents ListBox1 As ListBox
     Friend WithEvents Label1 As Label
     Friend WithEvents Label2 As Label
-    Friend WithEvents TextBox1 As TextBox
-    Friend WithEvents TextBox2 As TextBox
-    Friend WithEvents TextBox3 As TextBox
+    Friend WithEvents PCNameTextbox As TextBox
+    Friend WithEvents PCAddressTextbox As TextBox
+    Friend WithEvents PCPasswordTextbox As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents AddToListButton As Button
     Friend WithEvents RemoveButton As Button
     Friend WithEvents Label4 As Label
-    Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents MySQLServerTextbox As TextBox
     Friend WithEvents Label5 As Label
-    Friend WithEvents TextBox5 As TextBox
+    Friend WithEvents MySQLPortTextbox As TextBox
     Friend WithEvents Label6 As Label
-    Friend WithEvents TextBox6 As TextBox
-    Friend WithEvents TextBox7 As TextBox
+    Friend WithEvents MySQLDatabaseTextbox As TextBox
+    Friend WithEvents MySQLUsernameTextbox As TextBox
     Friend WithEvents Label7 As Label
-    Friend WithEvents TextBox8 As TextBox
+    Friend WithEvents MySQLPasswordTextbox As TextBox
     Friend WithEvents Label8 As Label
     Friend WithEvents Timer1 As Timer
-    Friend WithEvents NumericUpDown1 As NumericUpDown
+    Friend WithEvents TimeUpDownBox As NumericUpDown
     Friend WithEvents Label9 As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents Label11 As Label
-    Friend WithEvents TextBox9 As TextBox
+    Friend WithEvents PCPortTextbox As TextBox
     Friend WithEvents Label12 As Label
     Friend WithEvents Label13 As Label
-    Friend WithEvents CheckBox1 As CheckBox
-    Friend WithEvents Button4 As Button
+    Friend WithEvents EraseLogCheckbox As CheckBox
+    Friend WithEvents DonateButton As Button
     Friend WithEvents TrayIcon As NotifyIcon
+    Friend WithEvents UpdatePCButton As Button
 End Class
