@@ -21,12 +21,6 @@
     });
 </script>
 <?php
-/**
- * Created by PhpStorm.
- * User: cardo
- * Date: 7/1/2018
- * Time: 1:03 PM
- */
 require_once 'config.php';
 global $mysqli;
 $hostsresult = $mysqli->query("SELECT DISTINCT PCName FROM finishedtasks ORDER BY PCName ASC");
@@ -62,25 +56,25 @@ echo "<form method='post'>
         </tr> 
         </thead> 
         <tbody>";
-$sqlquery = 'SELECT * FROM finishedtasks ';
+$date_to_use = '%';
+$host_to_use = '%';
 if (isset($_POST['viewtasks'])) {
     if (!empty($_POST['date']))
-        $sqlquery .= "WHERE AddedDate LIKE '" . $_POST['date'] . "' ";
-    else
-        $sqlquery .= "WHERE AddedDate LIKE '%' ";
-    if ($_POST['host'] == "all")
-        $sqlquery .= " ";
-    else
-        $sqlquery .= "AND PCName='" . $_POST['host'] . "' ";
+        $date_to_use = $_POST['date'];
+    if ($_POST['host'] != "all")
+        $host_to_use = $_POST['host'];
 }
-$result = $mysqli->query($sqlquery . 'ORDER BY AddedDate DESC, AddedTime DESC');
+$stmt = $mysqli->prepare("SELECT * FROM finishedtasks WHERE AddedDate LIKE ? AND PCName LIKE ?");
+$stmt->bind_param("ss", $date_to_use, $host_to_use);
+$stmt->execute();
+$result = $stmt->get_result();
 if (mysqli_num_rows($result) > 0) {
     $o = '';
     while ($row = mysqli_fetch_assoc($result))
         $o .= "<tr id='tabletr'><td>" . $row['Project'] . "</td><td>" . $row['TaskName'] . "</td><td>" . $row['ElapsedTime'] . "</td><td>" . $row['AddedDate'] . " " . $row['AddedTime'] . " UTC</td><td>" . $row['PlanClass'] . "</td><td>" . $row['PCName'] . "</td></tr>";
     echo $o;
 }
-
+$stmt->close();
 echo "</tbody>
 </table>
 </body>";
