@@ -260,3 +260,5 @@ paket-files/
 __pycache__/
 *.pyc
 /BOINCToWeb/boinc-icon.bmp
+/BOINCToWeb/BoincRpc.dll
+/BoincRpc.dll

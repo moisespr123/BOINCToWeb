@@ -1,7 +1,7 @@
 ﻿Imports BoincRpc
 
 Public Class Form1
-
+    Private Timer1 As New Timers.Timer
     Private Running As Boolean = False
     Private Sub StartStopButton_Click(sender As Object, e As EventArgs) Handles StartStopButton.Click
         My.Settings.MySQLServer = MySQLServerTextbox.Text
@@ -18,9 +18,12 @@ Public Class Form1
             If Not Running Then
                 Running = True
                 StartStopButton.Text = "Stop Fetching"
-                Timer1.Interval = TimeUpDownBox.Value * 60 * 1000
+                Timer1 = New Timers.Timer(TimeUpDownBox.Value * 60 * 1000)
+                AddHandler Timer1.Elapsed, New Timers.ElapsedEventHandler(AddressOf Timer1_Tick)
                 Timer1.Start()
-                UpdateTasks()
+                CheckAndEraseLogIfEnabled()
+                Dim StartTask As New Threading.Thread(Sub() UpdateTasks())
+                StartTask.Start()
             Else
                 Running = False
                 Timer1.Stop()
@@ -81,31 +84,50 @@ Public Class Form1
         My.Settings.Save()
     End Sub
 
-    Private Sub Timer1_Tick(sender As Object, e As EventArgs) Handles Timer1.Tick
-        UpdateTasks()
+    Private Sub Timer1_Tick(sender As Object, e As Timers.ElapsedEventArgs)
+        CheckAndEraseLogIfEnabled()
+        Dim StartTask As New Threading.Thread(Sub() UpdateTasks())
+        StartTask.Start()
     End Sub
 
-    Private Sub UpdateTasks()
+    Private Async Sub UpdateTasks()
+        StatusLog("Starting MySQL Database Update test")
         Try
-            If EraseLogCheckbox.Checked Then
-                LogRichTextBox.Text = ""
-            End If
+            Timer1.Stop()
             Dim NumberOfHosts As Integer = ListBox1.Items.Count
             StatusLog("Starting MySQL Database Update")
             If TruncateTables() Then
                 StatusLog("Number of hosts: " & NumberOfHosts)
                 If NumberOfHosts > 0 Then
                     For i = 0 To NumberOfHosts - 1
-                        GetHostTasks(My.Settings.PCName.Item(i), My.Settings.PCIPAddress.Item(i), My.Settings.PCPort.Item(i), My.Settings.PCPassword.Item(i))
+                        Await GetHostTasks(My.Settings.PCName.Item(i), My.Settings.PCIPAddress.Item(i), My.Settings.PCPort.Item(i), My.Settings.PCPassword.Item(i))
                     Next
                 End If
             End If
+            Timer1.Start()
         Catch ex As Exception
             StatusLog("Couldn't update Database")
+            StatusLog(ex.ToString())
         End Try
     End Sub
+    Private Delegate Sub CheckAndEraseLogIfEnabledHandler()
+    Private Sub CheckAndEraseLogIfEnabled()
+        If LogRichTextBox.InvokeRequired Then
+            LogRichTextBox.Invoke(New CheckAndEraseLogIfEnabledHandler(AddressOf CheckAndEraseLogIfEnabled))
+            Exit Sub
+        End If
+        If EraseLogCheckbox.Checked Then
+            LogRichTextBox.Text = String.Empty
+        End If
+    End Sub
+    Private Delegate Sub StatusLogInvoker(text As String)
     Private Sub StatusLog(text As String)
+        If LogRichTextBox.InvokeRequired Then
+            LogRichTextBox.Invoke(New StatusLogInvoker(AddressOf StatusLog), text)
+            Exit Sub
+        End If
         LogRichTextBox.AppendText(Date.Now & " || " & text & vbNewLine)
+            LogRichTextBox.SelectionStart = LogRichTextBox.Text.Length - 1
         LogRichTextBox.ScrollToCaret()
     End Sub
     Private Async Function AddOrUpdateHost(Optional Update As Boolean = False) As Task
@@ -175,7 +197,7 @@ Public Class Form1
         SQLConnection.Close()
         Return HasTask
     End Function
-    Private Async Sub GetHostTasks(host As String, ip As String, port As Integer, password As String)
+    Private Async Function GetHostTasks(host As String, ip As String, port As Integer, password As String) As Task
         StatusLog("Getting Tasks for host " & host)
         Dim MySQLConnString = "server=" & My.Settings.MySQLServer & ";Port=" & My.Settings.MySQLPort & ";Database=" & My.Settings.MySQLDatabase & ";Uid=" & My.Settings.MySQLUsername & ";Pwd=" & My.Settings.MySQLPassword & ";Check Parameters=false;default command timeout=999;Connection Timeout=999;Pooling=false;allow user variables=true;sslmode=none"
         Dim BOINCClient As New RpcClient
@@ -246,7 +268,7 @@ Public Class Form1
         Catch ex As Exception
             StatusLog("Failed getting tasks for host " & host)
         End Try
-    End Sub
+    End Function
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles EraseLogCheckbox.CheckedChanged
         If EraseLogCheckbox.Checked Then

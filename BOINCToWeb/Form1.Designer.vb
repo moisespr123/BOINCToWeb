@@ -45,7 +45,6 @@ Partial Class Form1
         Me.Label7 = New System.Windows.Forms.Label()
         Me.MySQLPasswordTextbox = New System.Windows.Forms.TextBox()
         Me.Label8 = New System.Windows.Forms.Label()
-        Me.Timer1 = New System.Windows.Forms.Timer(Me.components)
         Me.TimeUpDownBox = New System.Windows.Forms.NumericUpDown()
         Me.Label9 = New System.Windows.Forms.Label()
         Me.Label10 = New System.Windows.Forms.Label()
@@ -57,8 +56,8 @@ Partial Class Form1
         Me.DonateButton = New System.Windows.Forms.Button()
         Me.TrayIcon = New System.Windows.Forms.NotifyIcon(Me.components)
         Me.UpdatePCButton = New System.Windows.Forms.Button()
-        CType(Me.TimeUpDownBox,System.ComponentModel.ISupportInitialize).BeginInit
-        Me.SuspendLayout
+        CType(Me.TimeUpDownBox, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.SuspendLayout()
         '
         'LogRichTextBox
         '
@@ -75,11 +74,11 @@ Partial Class Form1
         Me.StartStopButton.Size = New System.Drawing.Size(157, 23)
         Me.StartStopButton.TabIndex = 14
         Me.StartStopButton.Text = "Fetch Tasks!"
-        Me.StartStopButton.UseVisualStyleBackColor = true
+        Me.StartStopButton.UseVisualStyleBackColor = True
         '
         'ListBox1
         '
-        Me.ListBox1.FormattingEnabled = true
+        Me.ListBox1.FormattingEnabled = True
         Me.ListBox1.Location = New System.Drawing.Point(15, 222)
         Me.ListBox1.Name = "ListBox1"
         Me.ListBox1.Size = New System.Drawing.Size(158, 121)
@@ -87,7 +86,7 @@ Partial Class Form1
         '
         'Label1
         '
-        Me.Label1.AutoSize = true
+        Me.Label1.AutoSize = True
         Me.Label1.Location = New System.Drawing.Point(12, 9)
         Me.Label1.Name = "Label1"
         Me.Label1.Size = New System.Drawing.Size(91, 13)
@@ -96,7 +95,7 @@ Partial Class Form1
         '
         'Label2
         '
-        Me.Label2.AutoSize = true
+        Me.Label2.AutoSize = True
         Me.Label2.Location = New System.Drawing.Point(12, 51)
         Me.Label2.Name = "Label2"
         Me.Label2.Size = New System.Drawing.Size(114, 13)
@@ -127,7 +126,7 @@ Partial Class Form1
         '
         'Label3
         '
-        Me.Label3.AutoSize = true
+        Me.Label3.AutoSize = True
         Me.Label3.Location = New System.Drawing.Point(12, 143)
         Me.Label3.Name = "Label3"
         Me.Label3.Size = New System.Drawing.Size(109, 13)
@@ -141,7 +140,7 @@ Partial Class Form1
         Me.AddToListButton.Size = New System.Drawing.Size(158, 23)
         Me.AddToListButton.TabIndex = 5
         Me.AddToListButton.Text = "Add to List"
-        Me.AddToListButton.UseVisualStyleBackColor = true
+        Me.AddToListButton.UseVisualStyleBackColor = True
         '
         'RemoveButton
         '
@@ -150,11 +149,11 @@ Partial Class Form1
         Me.RemoveButton.Size = New System.Drawing.Size(161, 23)
         Me.RemoveButton.TabIndex = 7
         Me.RemoveButton.Text = "Remove PC"
-        Me.RemoveButton.UseVisualStyleBackColor = true
+        Me.RemoveButton.UseVisualStyleBackColor = True
         '
         'Label4
         '
-        Me.Label4.AutoSize = true
+        Me.Label4.AutoSize = True
         Me.Label4.Location = New System.Drawing.Point(187, 9)
         Me.Label4.Name = "Label4"
         Me.Label4.Size = New System.Drawing.Size(79, 13)
@@ -170,7 +169,7 @@ Partial Class Form1
         '
         'Label5
         '
-        Me.Label5.AutoSize = true
+        Me.Label5.AutoSize = True
         Me.Label5.Location = New System.Drawing.Point(187, 51)
         Me.Label5.Name = "Label5"
         Me.Label5.Size = New System.Drawing.Size(67, 13)
@@ -187,7 +186,7 @@ Partial Class Form1
         '
         'Label6
         '
-        Me.Label6.AutoSize = true
+        Me.Label6.AutoSize = True
         Me.Label6.Location = New System.Drawing.Point(187, 99)
         Me.Label6.Name = "Label6"
         Me.Label6.Size = New System.Drawing.Size(94, 13)
@@ -210,7 +209,7 @@ Partial Class Form1
         '
         'Label7
         '
-        Me.Label7.AutoSize = true
+        Me.Label7.AutoSize = True
         Me.Label7.Location = New System.Drawing.Point(187, 143)
         Me.Label7.Name = "Label7"
         Me.Label7.Size = New System.Drawing.Size(96, 13)
@@ -227,28 +226,25 @@ Partial Class Form1
         '
         'Label8
         '
-        Me.Label8.AutoSize = true
+        Me.Label8.AutoSize = True
         Me.Label8.Location = New System.Drawing.Point(187, 191)
         Me.Label8.Name = "Label8"
         Me.Label8.Size = New System.Drawing.Size(94, 13)
         Me.Label8.TabIndex = 19
         Me.Label8.Text = "MySQL Password:"
         '
-        'Timer1
-        '
-        '
         'TimeUpDownBox
         '
         Me.TimeUpDownBox.Location = New System.Drawing.Point(191, 255)
-        Me.TimeUpDownBox.Minimum = New Decimal(New Integer() {5, 0, 0, 65536})
+        Me.TimeUpDownBox.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.TimeUpDownBox.Name = "TimeUpDownBox"
         Me.TimeUpDownBox.Size = New System.Drawing.Size(48, 20)
         Me.TimeUpDownBox.TabIndex = 13
-        Me.TimeUpDownBox.Value = New Decimal(New Integer() {5, 0, 0, 65536})
+        Me.TimeUpDownBox.Value = New Decimal(New Integer() {1, 0, 0, 0})
         '
         'Label9
         '
-        Me.Label9.AutoSize = true
+        Me.Label9.AutoSize = True
         Me.Label9.Location = New System.Drawing.Point(188, 239)
         Me.Label9.Name = "Label9"
         Me.Label9.Size = New System.Drawing.Size(111, 13)
@@ -257,7 +253,7 @@ Partial Class Form1
         '
         'Label10
         '
-        Me.Label10.AutoSize = true
+        Me.Label10.AutoSize = True
         Me.Label10.Location = New System.Drawing.Point(245, 262)
         Me.Label10.Name = "Label10"
         Me.Label10.Size = New System.Drawing.Size(44, 13)
@@ -266,7 +262,7 @@ Partial Class Form1
         '
         'Label11
         '
-        Me.Label11.AutoSize = true
+        Me.Label11.AutoSize = True
         Me.Label11.Location = New System.Drawing.Point(360, 9)
         Me.Label11.Name = "Label11"
         Me.Label11.Size = New System.Drawing.Size(40, 13)
@@ -283,7 +279,7 @@ Partial Class Form1
         '
         'Label12
         '
-        Me.Label12.AutoSize = true
+        Me.Label12.AutoSize = True
         Me.Label12.Location = New System.Drawing.Point(12, 99)
         Me.Label12.Name = "Label12"
         Me.Label12.Size = New System.Drawing.Size(82, 13)
@@ -292,12 +288,12 @@ Partial Class Form1
         '
         'Label13
         '
-        Me.Label13.AutoSize = true
+        Me.Label13.AutoSize = True
         Me.Label13.Location = New System.Drawing.Point(622, 365)
         Me.Label13.Name = "Label13"
         Me.Label13.Size = New System.Drawing.Size(152, 39)
         Me.Label13.TabIndex = 27
-        Me.Label13.Text = "Developed by Moisés Cardona"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"v1.3 (dev)"&Global.Microsoft.VisualBasic.ChrW(13)&Global.Microsoft.VisualBasic.ChrW(10)&"http://moisescardona.me"
+        Me.Label13.Text = "Developed by Moisés Cardona" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "v1.4 (dev)" & Global.Microsoft.VisualBasic.ChrW(13) & Global.Microsoft.VisualBasic.ChrW(10) & "http://moisescardona.me"
         '
         'EraseLogCheckbox
         '
@@ -399,7 +395,6 @@ End Sub
     Friend WithEvents Label7 As Label
     Friend WithEvents MySQLPasswordTextbox As TextBox
     Friend WithEvents Label8 As Label
-    Friend WithEvents Timer1 As Timer
     Friend WithEvents TimeUpDownBox As NumericUpDown
     Friend WithEvents Label9 As Label
     Friend WithEvents Label10 As Label
